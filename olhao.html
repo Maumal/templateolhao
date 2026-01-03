@@ -1,0 +1,2352 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎨 Promo Post Generator - Olhão na Promo</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;600;700;800&family=Montserrat:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&family=Rubik:wght@400;500;600;700;800;900&family=Nunito:wght@400;600;700;800;900&family=Work+Sans:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=Bebas+Neue&family=Oswald:wght@400;500;600;700&family=Raleway:wght@400;500;600;700;800&family=Quicksand:wght@400;500;600;700&family=Lato:wght@400;700;900&family=Open+Sans:wght@400;600;700;800&family=Playfair+Display:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent: #fbbf24;
+        }
+
+        /* Modo Claro */
+        .light-mode {
+            --bg-primary: #f1f5f9;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #e2e8f0;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+        }
+
+        .sidebar {
+            width: 400px;
+            height: 100vh;
+            background: var(--bg-secondary);
+            overflow-y: auto;
+            flex-shrink: 0;
+            border-right: 1px solid var(--bg-tertiary);
+        }
+
+        .sidebar-header {
+            padding: 15px 20px;
+            background: var(--bg-tertiary);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .sidebar-header h1 {
+            font-size: 16px;
+        }
+
+        .size-presets {
+            margin-top: 10px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .size-btn {
+            padding: 8px 6px;
+            border-radius: 8px;
+            border: 1px solid var(--bg-tertiary);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+        }
+
+        .size-btn:hover {
+            transform: translateY(-1px);
+            border-color: var(--accent);
+        }
+
+        .size-btn.active {
+            background: var(--accent);
+            color: var(--bg-primary);
+            border-color: var(--accent);
+        }
+
+        .size-custom {
+            margin-top: 10px;
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .size-custom input[type="number"] {
+            padding: 6px 8px;
+            font-size: 11px;
+        }
+
+        .size-custom .btn {
+            padding: 8px 10px;
+            font-size: 11px;
+        }
+
+        .collapse-controls {
+            margin-top: 10px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .section {
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--bg-tertiary);
+        }
+
+        .section-title {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+            margin-bottom: 12px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-title:hover {
+            color: #f59e0b;
+        }
+
+        .section-content {
+            display: block;
+        }
+
+        .section-content.collapsed {
+            display: none;
+        }
+
+        .control-row {
+            margin-bottom: 12px;
+        }
+
+        .control-row label {
+            display: block;
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid var(--bg-tertiary);
+            border-radius: 6px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 12px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        input[type="color"] {
+            width: 40px;
+            height: 32px;
+            border: 1px solid var(--bg-tertiary);
+            border-radius: 6px;
+            background: var(--bg-primary);
+            cursor: pointer;
+            padding: 2px;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 4px;
+            border-radius: 2px;
+            background: var(--bg-tertiary);
+            cursor: pointer;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--accent);
+            cursor: pointer;
+        }
+
+        .range-value {
+            background: var(--bg-tertiary);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 8px;
+        }
+
+        .color-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .color-row input[type="text"] {
+            flex: 1;
+        }
+
+        .actions {
+            padding: 15px 20px;
+            background: var(--bg-tertiary);
+            position: sticky;
+            bottom: 0;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent) 0%, #f59e0b 100%);
+            color: var(--bg-primary);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--bg-tertiary);
+            margin-top: 8px;
+        }
+
+        .preview-area {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: var(--bg-primary);
+            overflow: auto;
+        }
+
+        #instagram-post {
+            width: 540px;
+            height: 540px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            flex-shrink: 0;
+        }
+
+        .post-product-area {
+            width: 100%;
+            height: 55%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .post-product-img {
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
+        }
+
+        .post-logo {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: transparent;
+            padding: 0;
+            border-radius: 0;
+            transform-origin: center;
+        }
+
+        .post-logo img {
+            height: 100px;
+            width: auto;
+        }
+
+        .post-discount-float {
+            position: absolute;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .post-info-area {
+            width: 100%;
+            height: 45%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px 30px;
+            position: relative;
+        }
+
+        .post-info-area::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--bar-thickness, 4px);
+            background: var(--bar-color, #ef4444);
+        }
+
+        .post-product-name {
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .post-price-original {
+            text-decoration: line-through;
+            margin-bottom: 4px;
+        }
+
+        .post-price-promo {
+            margin-bottom: 10px;
+            line-height: 1;
+        }
+
+        .post-badge {
+            display: inline-block;
+            border-radius: 40px;
+            white-space: nowrap;
+        }
+
+        .post-footer {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 12px;
+        }
+
+        /* Toast notifications */
+        .toast {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s ease;
+            border-left: 4px solid var(--accent);
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .toast.success {
+            border-left-color: #10b981;
+        }
+
+        .toast.error {
+            border-left-color: #ef4444;
+        }
+
+        .toast.info {
+            border-left-color: #3b82f6;
+        }
+
+        .shortcuts-hint {
+            padding: 10px 20px;
+            font-size: 10px;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--bg-tertiary);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h1>🎨 Promo Post Generator</h1>
+                <button class="btn btn-secondary" id="themeToggle" onclick="toggleTheme()" type="button"
+                    style="padding:6px 10px; font-size:14px;" title="Alternar tema">🌙</button>
+            </div>
+            <div class="collapse-controls">
+                <button class="btn btn-secondary" id="expandAll" type="button">Abrir tudo</button>
+                <button class="btn btn-secondary" id="collapseAll" type="button">Fechar tudo</button>
+            </div>
+        </div>
+
+        <!-- TAMANHO DO POST -->
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">📐 Tamanho <span>▼</span></div>
+            <div class="section-content collapsed">
+                <div class="size-presets">
+                    <button class="size-btn active" data-preset="instagram_square" type="button">IG 1:1</button>
+                    <button class="size-btn" data-preset="instagram_portrait" type="button">IG 4:5</button>
+                    <button class="size-btn" data-preset="instagram_story" type="button">Stories</button>
+                    <button class="size-btn" data-preset="tiktok" type="button">TikTok</button>
+                    <button class="size-btn" data-preset="facebook" type="button">Facebook</button>
+                    <button class="size-btn" data-preset="whatsapp_status" type="button">WhatsApp</button>
+                </div>
+                <div class="size-custom" style="margin-top:10px;">
+                    <input type="number" id="customWidth" min="100" max="4000" value="1080" />
+                    <input type="number" id="customHeight" min="100" max="4000" value="1080" />
+                    <button class="btn btn-secondary" id="customApply" type="button">OK</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TEMPLATES RÁPIDOS -->
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">🎨 Templates Rápidos <span>▼</span></div>
+            <div class="section-content">
+                <div class="grid-2">
+                    <button class="btn btn-secondary" onclick="applyTemplate('olhao')" type="button">Olhão na
+                        Promo</button>
+                    <button class="btn btn-secondary" onclick="applyTemplate('oferta')" type="button">Promoção
+                        Quente</button>
+                    <button class="btn btn-secondary" onclick="applyTemplate('modern')" type="button">Moderno
+                        Clean</button>
+                    <button class="btn btn-secondary" onclick="applyTemplate('bold')" type="button">Ousado
+                        Urgência</button>
+                    <button class="btn btn-secondary" onclick="applyTemplate('rosa')" type="button">Elegante
+                        Rosa</button>
+                    <button class="btn btn-secondary" onclick="applyTemplate('blackfriday')" type="button">Black
+                        Friday</button>
+                    <button class="btn btn-secondary" onclick="applyTemplate('verde')" type="button">Natureza
+                        Verde</button>
+                    <button class="btn btn-secondary" onclick="applyTemplate('minimal')"
+                        type="button">Minimalista</button>
+                </div>
+                <p style="font-size:10px; color:var(--accent); margin:12px 0 6px 0; font-weight:600;">📅 SAZONAIS</p>
+                <div class="grid-2">
+                    <button class="btn btn-secondary" onclick="applyTemplate('natal')" type="button">🎄 Natal</button>
+                    <button class="btn btn-secondary" onclick="applyTemplate('pascoa')" type="button">🐰 Páscoa</button>
+                    <button class="btn btn-secondary" onclick="applyTemplate('diadasmaes')" type="button">💐 Dia das
+                        Mães</button>
+                    <button class="btn btn-secondary" onclick="applyTemplate('cybermonday')" type="button">💻 Cyber
+                        Monday</button>
+                </div>
+                <p style="font-size:11px; color:var(--text-secondary); margin-top:10px;">
+                    💡 Clique para aplicar cores, fontes e tamanhos automaticamente
+                </p>
+            </div>
+        </div>
+
+        <!-- FAVORITOS -->
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">💾 Meus Favoritos <span>▼</span></div>
+            <div class="section-content">
+                <button class="btn btn-secondary" onclick="saveCurrentAsFavorite()" type="button">➕ Salvar Atual como
+                    Favorito</button>
+                <div id="favoritesList" style="margin-top:10px;">
+                    <p style="font-size:11px; color:var(--text-secondary);">Nenhum favorito salvo ainda</p>
+                </div>
+                <hr style="border:0; border-top:1px dashed var(--bg-tertiary); margin: 12px 0;">
+                <div class="grid-2">
+                    <button class="btn btn-secondary" onclick="exportConfig()" type="button">📤 Exportar JSON</button>
+                    <label class="btn btn-secondary" style="cursor:pointer;">
+                        📥 Importar JSON
+                        <input type="file" id="importFile" accept=".json" onchange="importConfig(this)"
+                            style="display:none;">
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONFIGURAÇÕES GERAIS -->
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">⚙️ Geral e Cores <span>▼</span></div>
+            <div class="section-content">
+                <div class="grid-2">
+                    <div class="control-row">
+                        <label>Fundo Produto</label>
+                        <div class="color-row">
+                            <input type="color" id="bgProduct" value="#ffffff" oninput="updatePreview()">
+                            <input type="text" id="bgProductHex" value="#ffffff"
+                                oninput="syncColor('bgProduct', this.value)">
+                        </div>
+                    </div>
+                    <div class="control-row">
+                        <label>Fundo Info</label>
+                        <div class="color-row">
+                            <input type="color" id="bgInfo" value="#0f172a" oninput="updatePreview()">
+                            <input type="text" id="bgInfoHex" value="#0f172a" oninput="syncColor('bgInfo', this.value)">
+                        </div>
+                    </div>
+                </div>
+                <div class="control-row">
+                    <label>Barra Divisória (Cor)</label>
+                    <div class="color-row">
+                        <input type="color" id="barColor" value="#ef4444" oninput="updatePreview()">
+                        <input type="text" id="barColorHex" value="#ef4444" oninput="syncColor('barColor', this.value)">
+                    </div>
+                </div>
+                <div class="control-row">
+                    <label>Espessura Barra: <span class="range-value" id="barThickV">4px</span></label>
+                    <input type="range" id="barThick" min="0" max="20" value="4" oninput="updatePreview()">
+                </div>
+                <div class="control-row">
+                    <label>Altura da Área Inferior: <span class="range-value" id="infoHeightV">45%</span></label>
+                    <input type="range" id="infoHeight" min="20" max="80" value="45" oninput="updatePreview()">
+                </div>
+                <hr style="border:0; border-top:1px dashed var(--bg-tertiary); margin: 12px 0;">
+                <div class="grid-2">
+                    <div class="control-row">
+                        <label>Borda do Post</label>
+                        <div class="color-row">
+                            <input type="color" id="borderColor" value="#fbbf24" oninput="updatePreview()">
+                            <input type="text" id="borderColorHex" value="#fbbf24"
+                                oninput="syncColor('borderColor', this.value)">
+                        </div>
+                    </div>
+                    <div class="control-row">
+                        <label>Espessura: <span class="range-value" id="borderThickV">0px</span></label>
+                        <input type="range" id="borderThick" min="0" max="20" value="0" oninput="updatePreview()">
+                    </div>
+                </div>
+                <hr style="border:0; border-top:1px dashed var(--bg-tertiary); margin: 12px 0;">
+                <div class="control-row" style="display:flex; justify-content:space-between; align-items:center;">
+                    <label>🎨 Gradiente no Fundo Info</label>
+                    <input type="checkbox" id="gradientEnabled" onchange="updatePreview()">
+                </div>
+                <div class="grid-2">
+                    <div class="control-row">
+                        <label>Cor 2 (Gradiente)</label>
+                        <div class="color-row">
+                            <input type="color" id="bgInfoGradient" value="#3b82f6" oninput="updatePreview()">
+                        </div>
+                    </div>
+                    <div class="control-row">
+                        <label>Direção</label>
+                        <select id="gradientDirection" onchange="updatePreview()" style="width:100%;">
+                            <option value="to bottom">↓ Para baixo</option>
+                            <option value="to top">↑ Para cima</option>
+                            <option value="to right">→ Para direita</option>
+                            <option value="to left">← Para esquerda</option>
+                            <option value="135deg">↘ Diagonal</option>
+                            <option value="45deg">↗ Diagonal inverso</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- IMAGEM PRODUTO -->
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">🖼️ Imagem do Produto <span>▼</span></div>
+            <div class="section-content">
+                <div class="control-row">
+                    <label>Carregar Imagem</label>
+                    <input type="file" id="imageUpload" accept="image/*" onchange="loadImage(this, 'productImage')"
+                        style="font-size:11px;">
+                </div>
+                <div class="control-row">
+                    <label>URL / Base64</label>
+                    <input type="text" id="productImage" value="assets/produto_beleza_mock.png"
+                        oninput="updatePreview()">
+                </div>
+                <div class="grid-2">
+                    <div class="control-row">
+                        <label>Zoom: <span class="range-value" id="imgZoomV">100%</span></label>
+                        <input type="range" id="imgZoom" min="10" max="300" value="100" oninput="updatePreview()">
+                    </div>
+                    <div class="control-row">
+                        <label>Rotação: <span class="range-value" id="imgRotV">0°</span></label>
+                        <input type="range" id="imgRot" min="-180" max="180" value="0" oninput="updatePreview()">
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="control-row">
+                        <label>Pos X: <span class="range-value" id="imgXV">0px</span></label>
+                        <input type="range" id="imgX" min="-300" max="300" value="0" oninput="updatePreview()">
+                    </div>
+                    <div class="control-row">
+                        <label>Pos Y: <span class="range-value" id="imgYV">0px</span></label>
+                        <input type="range" id="imgY" min="-300" max="300" value="0" oninput="updatePreview()">
+                    </div>
+                </div>
+                <div class="control-row">
+                    <label>Sombra: <span class="range-value" id="imgShadowV">0</span></label>
+                    <input type="range" id="imgShadow" min="0" max="50" value="0" oninput="updatePreview()">
+                </div>
+                <button class="btn btn-secondary" onclick="centerImage()" type="button" style="margin-top:10px;">🎯
+                    Centralizar Imagem</button>
+                <button class="btn btn-secondary" onclick="removeBackground()" type="button"
+                    style="margin-top:8px; background:#7c3aed;">✂️ Remover Fundo</button>
+            </div>
+        </div>
+
+        <!-- IMAGEM SECUNDÁRIA -->
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">🖼️ Imagem Secundária (Opcional) <span>▼</span>
+            </div>
+            <div class="section-content">
+                <div class="control-row" style="display:flex; justify-content:space-between; align-items:center;">
+                    <label>Mostrar</label>
+                    <input type="checkbox" id="img2Visible" onchange="updatePreview()">
+                </div>
+                <div class="control-row">
+                    <label>Carregar Imagem</label>
+                    <input type="file" id="imageUpload2" accept="image/*" onchange="loadImage(this, 'productImage2')"
+                        style="font-size:11px;">
+                </div>
+                <div class="control-row">
+                    <label>URL / Base64</label>
+                    <input type="text" id="productImage2" value="assets/produto_beleza_mock.png"
+                        oninput="updatePreview()">
+                </div>
+                <div class="grid-2">
+                    <div class="control-row">
+                        <label>Zoom: <span class="range-value" id="imgZoom2V">100%</span></label>
+                        <input type="range" id="imgZoom2" min="10" max="300" value="100" oninput="updatePreview()">
+                    </div>
+                    <div class="control-row">
+                        <label>Rotação: <span class="range-value" id="imgRot2V">0°</span></label>
+                        <input type="range" id="imgRot2" min="-180" max="180" value="0" oninput="updatePreview()">
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="control-row">
+                        <label>Pos X: <span class="range-value" id="imgX2V">0px</span></label>
+                        <input type="range" id="imgX2" min="-300" max="300" value="0" oninput="updatePreview()">
+                    </div>
+                    <div class="control-row">
+                        <label>Pos Y: <span class="range-value" id="imgY2V">0px</span></label>
+                        <input type="range" id="imgY2" min="-300" max="300" value="0" oninput="updatePreview()">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LOGO -->
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">🧩 Logo <span>▼</span></div>
+            <div class="section-content">
+                <div class="control-row" style="display:flex; justify-content:space-between; align-items:center;">
+                    <label>Ativar Logo</label>
+                    <input type="checkbox" id="logoVisible" checked onchange="updatePreview()">
+                </div>
+                <div class="control-row">
+                    <label>Tamanho: <span class="range-value" id="logoSizeV">100%</span></label>
+                    <input type="range" id="logoSize" min="10" max="300" value="100" oninput="updatePreview()">
+                </div>
+                <div class="grid-2">
+                    <div class="control-row">
+                        <label>Pos X: <span class="range-value" id="logoXV">15px</span></label>
+                        <input type="range" id="logoX" min="0" max="500" value="15" oninput="updatePreview()">
+                    </div>
+                    <div class="control-row">
+                        <label>Pos Y: <span class="range-value" id="logoYV">15px</span></label>
+                        <input type="range" id="logoY" min="0" max="500" value="15" oninput="updatePreview()">
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="control-row">
+                        <label>Rotação</label>
+                        <input type="range" id="logoRot" min="-180" max="180" value="0" oninput="updatePreview()">
+                    </div>
+                    <div class="control-row">
+                        <label>Sombra</label>
+                        <input type="range" id="logoShadow" min="0" max="40" value="0" oninput="updatePreview()">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TÍTULO DO PRODUTO -->
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">📝 Nome do Produto <span>▼</span></div>
+            <div class="section-content">
+                <div class="control-row" style="display:flex; justify-content:space-between; align-items:center;">
+                    <label>Mostrar</label>
+                    <input type="checkbox" id="nameVisible" checked onchange="updatePreview()">
+                </div>
+                <textarea id="productName" rows="2"
+                    oninput="updatePreview()">Kit Premium 3 Máscaras Hidratação</textarea>
+
+                <div class="grid-2">
+                    <div class="control-row">
+                        <label>Fonte</label>
+                        <select id="nameFont" onchange="updatePreview()">
+                            <option value="Inter">Inter</option>
+                            <option value="Montserrat">Montserrat</option>
+                            <option value="Poppins">Poppins</option>
+                            <option value="Rubik">Rubik</option>
+                            <option value="DM Sans">DM Sans</option>
+                            <option value="Bebas Neue">Bebas Neue</option>
+                            <option value="Oswald">Oswald</option>
+                            <option value="Raleway">Raleway</option>
+                            <option value="Quicksand">Quicksand</option>
+                            <option value="Lato">Lato</option>
+                            <option value="Open Sans">Open Sans</option>
+                            <option value="Playfair Display">Playfair Display</option>
+                            <option value="Nunito">Nunito</option>
+                            <option value="Work Sans">Work Sans</option>
+                            <option value="Outfit">Outfit</option>
+                        </select>
+                    </div>
+                    <div class="control-row">
+                        <label>Cor</label>
+                        <div class="color-row">
+                            <input type="color" id="nameColor" value="#ffffff" oninput="updatePreview()">
+                            <input type="text" id="nameColorHex" value="#ffffff"
+                                oninput="syncColor('nameColor', this.value)">
+                        </div>
+                    </div>
+                </div>
+                <div class="control-row">
+                    <label>Tamanho: <span class="range-value" id="nameSizeV">22px</span></label>
+                    <input type="range" id="nameSize" min="10" max="80" value="22" oninput="updatePreview()">
+                </div>
+                <div class="grid-3">
+                    <div class="control-row">
+                        <label>X: <span class="range-value" id="nameXV">0</span></label>
+                        <input type="range" id="nameX" min="-500" max="500" value="0" oninput="updatePreview()">
+                    </div>
+                    <div class="control-row">
+                        <label>Y: <span class="range-value" id="nameYV">0</span></label>
+                        <input type="range" id="nameY" min="-500" max="500" value="0" oninput="updatePreview()">
+                    </div>
+                    <div class="control-row">
+                        <label>Rot: <span class="range-value" id="nameRotV">0</span></label>
+                        <input type="range" id="nameRot" min="-180" max="180" value="0" oninput="updatePreview()">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PREÇO ORIGINAL -->
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">💵 Preço Original <span>▼</span></div>
+            <div class="section-content">
+                <div class="control-row" style="display:flex; justify-content:space-between; align-items:center;">
+                    <label>Mostrar</label>
+                    <input type="checkbox" id="origVisible" checked onchange="updatePreview()">
+                </div>
+                <div class="control-row">
+                    <label>Texto (ex: DE R$ 89,90)</label>
+                    <input type="text" id="priceOriginal" value="DE R$ 89,90" oninput="updatePreview()">
+                </div>
+                <div class="grid-2">
+                    <div class="control-row">
+                        <label>Fonte</label>
+                        <select id="origFont" onchange="updatePreview()">
+                            <option value="Inter">Inter</option>
+                            <option value="Montserrat">Montserrat</option>
+                            <option value="Poppins">Poppins</option>
+                            <option value="Rubik">Rubik</option>
+                            <option value="DM Sans">DM Sans</option>
+                            <option value="Oswald">Oswald</option>
+                            <option value="Lato">Lato</option>
+                            <option value="Open Sans">Open Sans</option>
+                        </select>
+                    </div>
+                    <div class="control-row">
+                        <label>Cor</label>
+                        <div class="color-row">
+                            <input type="color" id="origColor" value="#94a3b8" oninput="updatePreview()">
+                        </div>
+                    </div>
+                </div>
+                <div class="control-row">
+                    <label>Tamanho: <span class="range-value" id="origSizeV">14px</span></label>
+                    <input type="range" id="origSize" min="10" max="60" value="14" oninput="updatePreview()">
+                </div>
+                <div class="grid-3">
+                    <div class="control-row">
+                        <label>X: <span class="range-value" id="origXV">0</span></label>
+                        <input type="range" id="origX" min="-500" max="500" value="0" oninput="updatePreview()">
+                    </div>
+                    <div class="control-row">
+                        <label>Y: <span class="range-value" id="origYV">0</span></label>
+                        <input type="range" id="origY" min="-500" max="500" value="0" oninput="updatePreview()">
+                    </div>
+                    <div class="control-row">
+                        <label>Rot: <span class="range-value" id="origRotV">0</span></label>
+                        <input type="range" id="origRot" min="-180" max="180" value="0" oninput="updatePreview()">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PREÇO PROMO -->
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">💰 Preço Promocional <span>▼</span></div>
+            <div class="section-content">
+                <div class="control-row" style="display:flex; justify-content:space-between; align-items:center;">
+                    <label>Mostrar</label>
+                    <input type="checkbox" id="promoVisible" checked onchange="updatePreview()">
+                </div>
+                <div class="control-row">
+                    <label>Texto (ex: R$ 59,90)</label>
+                    <input type="text" id="pricePromo" value="R$ 59,90" oninput="updatePreview()">
+                </div>
+                <div class="grid-2">
+                    <div class="control-row">
+                        <label>Fonte</label>
+                        <select id="promoFont" onchange="updatePreview()">
+                            <option value="Inter">Inter</option>
+                            <option value="Montserrat">Montserrat</option>
+                            <option value="Poppins">Poppins</option>
+                            <option value="DM Sans">DM Sans</option>
+                            <option value="Bebas Neue">Bebas Neue</option>
+                            <option value="Oswald">Oswald</option>
+                            <option value="Rubik">Rubik</option>
+                            <option value="Lato">Lato</option>
+                            <option value="Playfair Display">Playfair Display</option>
+                        </select>
+                    </div>
+                    <div class="control-row">
+                        <label>Cor</label>
+                        <div class="color-row">
+                            <input type="color" id="promoColor" value="#fbbf24" oninput="updatePreview()">
+                            <input type="text" id="promoColorHex" value="#fbbf24"
+                                oninput="syncColor('promoColor', this.value)">
+                        </div>
+                    </div>
+                </div>
+                <div class="control-row">
+                    <label>Tamanho: <span class="range-value" id="promoSizeV">44px</span></label>
+                    <input type="range" id="promoSize" min="14" max="100" value="44" oninput="updatePreview()">
+                </div>
+                <div class="grid-3">
+                    <div class="control-row">
+                        <label>X: <span class="range-value" id="promoXV">0</span></label>
+                        <input type="range" id="promoX" min="-500" max="500" value="0" oninput="updatePreview()">
+                    </div>
+                    <div class="control-row">
+                        <label>Y: <span class="range-value" id="promoYV">0</span></label>
+                        <input type="range" id="promoY" min="-500" max="500" value="0" oninput="updatePreview()">
+                    </div>
+                    <div class="control-row">
+                        <label>Rot: <span class="range-value" id="promoRotV">0</span></label>
+                        <input type="range" id="promoRot" min="-180" max="180" value="0" oninput="updatePreview()">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BADGE PRINCIPAL (INFERIOR) -->
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">🎯 Badge Inferior <span>▼</span></div>
+            <div class="section-content">
+                <div class="control-row" style="display:flex; justify-content:space-between; align-items:center;">
+                    <label>Mostrar</label>
+                    <input type="checkbox" id="badgeVisible" checked onchange="updatePreview()">
+                </div>
+                <div class="control-row">
+                    <label>Texto</label>
+                    <input type="text" id="badgeText" value="🔥 ECONOMIA DE R$ 30" oninput="updatePreview()">
+                </div>
+                <div class="grid-2">
+                    <div class="control-row">
+                        <label>Fundo</label>
+                        <div class="color-row">
+                            <input type="color" id="badgeBg" value="#fbbf24" oninput="updatePreview()">
+                            <input type="text" id="badgeBgHex" value="#fbbf24"
+                                oninput="syncColor('badgeBg', this.value)">
+                        </div>
+                    </div>
+                    <div class="control-row">
+                        <label>Texto Cor</label>
+                        <div class="color-row">
+                            <input type="color" id="badgeColor" value="#0f172a" oninput="updatePreview()">
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="control-row">
+                        <label>Tamanho: <span class="range-value" id="badgeSizeV">14px</span></label>
+                        <input type="range" id="badgeSize" min="10" max="60" value="14" oninput="updatePreview()">
+                    </div>
+                    <div class="control-row">
+                        <label>Padding</label>
+                        <input type="number" id="badgePadding" value="10" oninput="updatePreview()">
+                    </div>
+                </div>
+                <div class="grid-3">
+                    <div class="control-row">
+                        <label>X: <span class="range-value" id="badgeXV">0</span></label>
+                        <input type="range" id="badgeX" min="-500" max="500" value="0" oninput="updatePreview()">
+                    </div>
+                    <div class="control-row">
+                        <label>Y: <span class="range-value" id="badgeYV">0</span></label>
+                        <input type="range" id="badgeY" min="-500" max="500" value="0" oninput="updatePreview()">
+                    </div>
+                    <div class="control-row">
+                        <label>Rot: <span class="range-value" id="badgeRotV">0</span></label>
+                        <input type="range" id="badgeRot" min="-180" max="180" value="0" oninput="updatePreview()">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BADGE FLUTUANTE (SUPERIOR) -->
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">🏷️ Badge Flutuante <span>▼</span></div>
+            <div class="section-content">
+                <div class="control-row" style="display:flex; justify-content:space-between; align-items:center;">
+                    <label>Mostrar</label>
+                    <input type="checkbox" id="floatVisible" checked onchange="updatePreview()">
+                </div>
+                <div class="control-row">
+                    <label>Texto</label>
+                    <input type="text" id="floatText" value="🔥 33% OFF" oninput="updatePreview()">
+                </div>
+                <div class="grid-2">
+                    <div class="control-row">
+                        <label>Fundo</label>
+                        <div class="color-row">
+                            <input type="color" id="floatBg" value="#ef4444" oninput="updatePreview()">
+                            <input type="text" id="floatBgHex" value="#ef4444"
+                                oninput="syncColor('floatBg', this.value)">
+                        </div>
+                    </div>
+                    <div class="control-row">
+                        <label>Texto Cor</label>
+                        <div class="color-row">
+                            <input type="color" id="floatColor" value="#ffffff" oninput="updatePreview()">
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="control-row">
+                        <label>Pos X (%)</label>
+                        <input type="range" id="floatX" min="0" max="100" value="85" oninput="updatePreview()">
+                    </div>
+                    <div class="control-row">
+                        <label>Pos Y (%)</label>
+                        <input type="range" id="floatY" min="0" max="100" value="5" oninput="updatePreview()">
+                    </div>
+                </div>
+                <div class="control-row">
+                    <label>Rotação</label>
+                    <input type="range" id="floatRot" min="-180" max="180" value="0" oninput="updatePreview()">
+                </div>
+                <div class="control-row">
+                    <label>Tamanho: <span class="range-value" id="floatSizeV">14px</span></label>
+                    <input type="range" id="floatSize" min="10" max="60" value="14" oninput="updatePreview()">
+                </div>
+            </div>
+        </div>
+
+        <!-- LOJA -->
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">🏪 Loja <span>▼</span></div>
+            <div class="section-content">
+                <div class="control-row" style="display:flex; justify-content:space-between; align-items:center;">
+                    <label>Mostrar</label>
+                    <input type="checkbox" id="storeVisible" checked onchange="updatePreview()">
+                </div>
+                <div class="control-row">
+                    <label>Nome Loja</label>
+                    <input type="text" id="storeName" value="Magazine Luiza" oninput="updatePreview()">
+                </div>
+
+                <hr style="border:0; border-top:1px dashed var(--bg-tertiary); margin: 10px 0;">
+
+                <div class="control-row" style="display:flex; justify-content:space-between; align-items:center;">
+                    <label>Logo da Loja</label>
+                    <input type="checkbox" id="storeLogoVisible" onchange="updatePreview()">
+                </div>
+                <div class="control-row">
+                    <label>Carregar Logo</label>
+                    <input type="file" id="storeLogoUpload" accept="image/*" onchange="loadImage(this, 'storeLogoSrc')"
+                        style="font-size:11px;">
+                    <input type="hidden" id="storeLogoSrc" value="">
+                </div>
+                <div class="control-row">
+                    <label>Tamanho Logo: <span class="range-value" id="storeLogoSizeV">30px</span></label>
+                    <input type="range" id="storeLogoSize" min="10" max="200" value="30" oninput="updatePreview()">
+                </div>
+                <div class="grid-3">
+                    <div class="control-row">
+                        <label>X: <span class="range-value" id="storeLogoXV">0</span></label>
+                        <input type="range" id="storeLogoX" min="-500" max="500" value="0" oninput="updatePreview()">
+                    </div>
+                    <div class="control-row">
+                        <label>Y: <span class="range-value" id="storeLogoYV">0</span></label>
+                        <input type="range" id="storeLogoY" min="-500" max="500" value="0" oninput="updatePreview()">
+                    </div>
+                    <div class="control-row">
+                        <label>Rot: <span class="range-value" id="storeLogoRotV">0</span></label>
+                        <input type="range" id="storeLogoRot" min="-180" max="180" value="0" oninput="updatePreview()">
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="control-row">
+                        <label>Cor (Texto)</label>
+                        <div class="color-row">
+                            <input type="color" id="storeColor" value="#94a3b8" oninput="updatePreview()">
+                        </div>
+                    </div>
+                    <div class="control-row">
+                        <label>Tamanho</label>
+                        <input type="number" id="storeSize" value="12" oninput="updatePreview()">
+                    </div>
+                </div>
+                <div class="grid-3">
+                    <div class="control-row">
+                        <label>X: <span class="range-value" id="storeXV">0</span></label>
+                        <input type="range" id="storeX" min="-500" max="500" value="0" oninput="updatePreview()">
+                    </div>
+                    <div class="control-row">
+                        <label>Y: <span class="range-value" id="storeYV">0</span></label>
+                        <input type="range" id="storeY" min="-500" max="500" value="0" oninput="updatePreview()">
+                    </div>
+                    <div class="control-row">
+                        <label>Rot: <span class="range-value" id="storeRotV">0</span></label>
+                        <input type="range" id="storeRot" min="-180" max="180" value="0" oninput="updatePreview()">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CALL TO ACTION (FOOTER) -->
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">📣 Call to Action (Footer) <span>▼</span></div>
+            <div class="section-content">
+                <div class="control-row" style="display:flex; justify-content:space-between; align-items:center;">
+                    <label>Mostrar</label>
+                    <input type="checkbox" id="ctaVisible" checked onchange="updatePreview()">
+                </div>
+                <div class="control-row">
+                    <label>Texto</label>
+                    <input type="text" id="ctaText" value="👆 Link na bio" oninput="updatePreview()">
+                </div>
+                <div class="grid-2">
+                    <div class="control-row">
+                        <label>Cor</label>
+                        <div class="color-row">
+                            <input type="color" id="ctaColor" value="#fbbf24" oninput="updatePreview()">
+                            <input type="text" id="ctaColorHex" value="#fbbf24"
+                                oninput="syncColor('ctaColor', this.value)">
+                        </div>
+                    </div>
+                    <div class="control-row">
+                        <label>Tamanho</label>
+                        <input type="number" id="ctaSize" value="12" oninput="updatePreview()">
+                    </div>
+                </div>
+                <div class="grid-3">
+                    <div class="control-row">
+                        <label>X: <span class="range-value" id="ctaXV">0</span></label>
+                        <input type="range" id="ctaX" min="-500" max="500" value="0" oninput="updatePreview()">
+                    </div>
+                    <div class="control-row">
+                        <label>Y: <span class="range-value" id="ctaYV">0</span></label>
+                        <input type="range" id="ctaY" min="-500" max="500" value="0" oninput="updatePreview()">
+                    </div>
+                    <div class="control-row">
+                        <label>Rot: <span class="range-value" id="ctaRotV">0</span></label>
+                        <input type="range" id="ctaRot" min="-180" max="180" value="0" oninput="updatePreview()">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button class="btn btn-primary" id="downloadBtn" onclick="downloadImage()">📥 Baixar (<span
+                    id="downloadSize">1080x1080</span>)</button>
+            <div style="display:flex; gap:8px; margin-top:8px;">
+                <select id="exportFormat" style="flex:1; padding:8px; font-size:12px;">
+                    <option value="png">PNG (melhor qualidade)</option>
+                    <option value="jpeg">JPG (menor tamanho)</option>
+                    <option value="webp">WebP (equilíbrio)</option>
+                </select>
+                <button class="btn btn-secondary" onclick="copyToClipboard()" style="flex:1;"
+                    title="Copiar imagem para área de transferência">📋 Copiar</button>
+            </div>
+            <button class="btn btn-secondary" onclick="optimizeAll()" style="background:#10b981;">⚡ Otimizar
+                Tudo</button>
+            <button class="btn btn-secondary" onclick="resetAll()">🗑️ Resetar</button>
+            <div class="shortcuts-hint"
+                style="margin-top:10px; padding:8px; background:var(--bg-primary); border-radius:6px; font-size:10px;">
+                <strong>⌨️ Atalhos:</strong>
+                <span style="margin-left:8px;">Ctrl+S = Baixar</span>
+                <span style="margin-left:8px;">Ctrl+D = Favorito</span>
+                <span style="margin-left:8px;">Ctrl+L = Último</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" style="position:fixed; top:20px; right:20px; z-index:9999;"></div>
+
+    <div class="preview-area">
+        <div id="instagram-post">
+            <div class="post-product-area" id="productArea">
+                <img src="assets/produto_beleza_mock.png" alt="Produto" class="post-product-img" id="productImg">
+                <img src="assets/produto_beleza_mock.png" alt="Produto 2" class="post-product-img" id="productImg2"
+                    style="display:none; position:absolute; z-index:5; width:auto; height:auto; max-width:80%; max-height:80%;">
+                <div class="post-logo" id="logoWrap"><img src="logo.png" alt="Logo" id="logoImg"></div>
+                <div class="post-discount-float" id="floatBadge">🔥 33% OFF</div>
+            </div>
+            <div class="post-info-area" id="infoArea">
+                <div class="post-product-name" id="nameDisplay">Kit Premium 3 Máscaras Hidratação</div>
+                <div class="post-price-original" id="origDisplay">DE R$ 89,90</div>
+                <div class="post-price-promo" id="promoDisplay">R$ 59,90</div>
+                <div class="post-badge" id="badgeDisplay">🔥 ECONOMIA DE R$ 30</div>
+                <div class="post-footer">
+                    <img id="storeLogoDisplay" src="" style="display:none; height:30px; margin-right:8px;">
+                    <span id="storeDisplay">🏪 Magazine Luiza</span>
+                    <span id="ctaDisplay" style="font-weight:700;">👆 Link na bio</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const sizePresets = {
+            instagram_square: { label: 'Instagram 1:1', width: 1080, height: 1080 },
+            instagram_portrait: { label: 'Instagram 4:5', width: 1080, height: 1350 },
+            instagram_story: { label: 'Instagram Story', width: 1080, height: 1920 },
+            tiktok: { label: 'TikTok', width: 1080, height: 1920 },
+            pinterest: { label: 'Pinterest', width: 1000, height: 1500 },
+            facebook: { label: 'Facebook Feed', width: 1200, height: 630 },
+            youtube: { label: 'YouTube Thumb', width: 1280, height: 720 },
+            twitter: { label: 'X/Twitter', width: 1600, height: 900 },
+            linkedin: { label: 'LinkedIn', width: 1200, height: 627 },
+            whatsapp_status: { label: 'WhatsApp Status', width: 1080, height: 1920 }
+        };
+        const previewScale = 0.5;
+
+        // Cache DOM elements
+        const elements = {};
+
+        function initElements() {
+            // Helper to get all IDs
+            const allIds = [
+                'instagram-post', 'downloadSize', 'customWidth', 'customHeight',
+                // Geral
+                'bgProduct', 'bgProductHex', 'bgInfo', 'bgInfoHex', 'barColor', 'barColorHex', 'barThick', 'barThickV', 'infoHeight', 'infoHeightV',
+                'borderColor', 'borderColorHex', 'borderThick', 'borderThickV',
+                'gradientEnabled', 'bgInfoGradient', 'gradientDirection',
+                'productArea', 'infoArea',
+                // Imagem
+                'imageUpload', 'productImage', 'imgZoom', 'imgZoomV', 'imgRot', 'imgRotV', 'imgX', 'imgXV', 'imgY', 'imgYV', 'imgShadow', 'imgShadowV', 'productImg',
+                // Logo
+                'logoVisible', 'logoSize', 'logoSizeV', 'logoX', 'logoXV', 'logoY', 'logoYV', 'logoRot', 'logoShadow', 'logoWrap', 'logoImg',
+                // Nome
+                'nameVisible', 'productName', 'nameFont', 'nameColor', 'nameColorHex', 'nameSize', 'nameSizeV', 'nameX', 'nameXV', 'nameY', 'nameYV', 'nameRot', 'nameRotV', 'nameDisplay',
+                // Preço Orig
+                'origVisible', 'priceOriginal', 'origFont', 'origColor', 'origSize', 'origSizeV', 'origX', 'origXV', 'origY', 'origYV', 'origRot', 'origRotV', 'origDisplay',
+                // Preço Promo
+                'promoVisible', 'pricePromo', 'promoFont', 'promoColor', 'promoColorHex', 'promoSize', 'promoSizeV', 'promoX', 'promoXV', 'promoY', 'promoYV', 'promoRot', 'promoRotV', 'promoDisplay',
+                // Badge Inf
+                'badgeVisible', 'badgeText', 'badgeBg', 'badgeBgHex', 'badgeColor', 'badgeSize', 'badgeSizeV', 'badgePadding', 'badgeX', 'badgeXV', 'badgeY', 'badgeYV', 'badgeRot', 'badgeRotV', 'badgeDisplay',
+                // Badge Float
+                'floatVisible', 'floatText', 'floatBg', 'floatBgHex', 'floatColor', 'floatSize', 'floatSizeV', 'floatX', 'floatY', 'floatRot', 'floatBadge',
+                // Loja
+                'storeVisible', 'storeName', 'storeColor', 'storeSize', 'storeX', 'storeXV', 'storeY', 'storeYV', 'storeRot', 'storeRotV', 'storeDisplay',
+                'storeLogoVisible', 'storeLogoUpload', 'storeLogoSrc', 'storeLogoSize', 'storeLogoSizeV', 'storeLogoX', 'storeLogoXV', 'storeLogoY', 'storeLogoYV', 'storeLogoRot', 'storeLogoRotV', 'storeLogoDisplay',
+                // CTA
+                'ctaVisible', 'ctaText', 'ctaColor', 'ctaColorHex', 'ctaSize', 'ctaX', 'ctaXV', 'ctaY', 'ctaYV', 'ctaRot', 'ctaRotV', 'ctaDisplay'
+            ];
+
+            allIds.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) elements[id] = el;
+            });
+
+            elements.sizeBtns = document.querySelectorAll('.size-btn');
+        }
+
+        function applySizePreset(presetKey) {
+            const preset = sizePresets[presetKey];
+            if (!preset) return;
+            applySize(preset.width, preset.height, presetKey);
+            if (elements.customWidth) elements.customWidth.value = preset.width;
+            if (elements.customHeight) elements.customHeight.value = preset.height;
+        }
+
+        function applySize(width, height, presetKey) {
+            const postEl = elements['instagram-post'];
+            postEl.style.width = `${width * previewScale}px`;
+            postEl.style.height = `${height * previewScale}px`;
+            elements.downloadSize.textContent = `${width}x${height}`;
+
+            elements.sizeBtns.forEach((btn) => {
+                btn.classList.toggle('active', btn.dataset.preset === presetKey);
+            });
+        }
+
+        function applyCustomSize() {
+            const width = parseInt(elements.customWidth.value, 10);
+            const height = parseInt(elements.customHeight.value, 10);
+            if (!Number.isFinite(width) || !Number.isFinite(height)) return;
+            if (width < 100 || height < 100) return;
+            applySize(width, height, null);
+        }
+
+        function toggleSection(el) {
+            const content = el.nextElementSibling;
+            content.classList.toggle('collapsed');
+            el.querySelector('span').textContent = content.classList.contains('collapsed') ? '▶' : '▼';
+        }
+
+        function setAllSections(collapsed) {
+            document.querySelectorAll('.section').forEach((section) => {
+                const title = section.querySelector('.section-title');
+                const content = section.querySelector('.section-content');
+                if (!title || !content) return;
+                content.classList.toggle('collapsed', collapsed);
+                const arrow = title.querySelector('span');
+                if (arrow) {
+                    arrow.textContent = collapsed ? '▶' : '▼';
+                }
+            });
+        }
+
+        function syncColor(id, hex) {
+            if (/^#[0-9A-Fa-f]{6}$/.test(hex)) {
+                if (elements[id]) elements[id].value = hex;
+                updatePreview();
+            }
+        }
+
+        function updatePreview() {
+            // Geral
+            if (elements.productArea) elements.productArea.style.background = elements.bgProduct.value;
+            if (elements.infoArea) {
+                // Gradiente ou cor sólida
+                if (elements.gradientEnabled?.checked) {
+                    const color1 = elements.bgInfo.value;
+                    const color2 = elements.bgInfoGradient?.value || '#3b82f6';
+                    const direction = elements.gradientDirection?.value || 'to bottom';
+                    elements.infoArea.style.background = `linear-gradient(${direction}, ${color1}, ${color2})`;
+                } else {
+                    elements.infoArea.style.background = elements.bgInfo.value;
+                }
+
+                elements.infoArea.style.setProperty('--bar-color', elements.barColor.value);
+                elements.infoArea.style.setProperty('--bar-thickness', elements.barThick.value + 'px');
+
+                // Height Split
+                const h = elements.infoHeight.value;
+                elements.infoArea.style.height = h + '%';
+                if (elements.productArea) elements.productArea.style.height = (100 - h) + '%';
+                if (elements.infoHeightV) elements.infoHeightV.innerText = h + '%';
+            }
+            if (elements.barThickV) elements.barThickV.innerText = elements.barThick.value + 'px';
+
+            // Borda do Post
+            const postEl = elements['instagram-post'];
+            if (postEl && elements.borderThick) {
+                const borderWidth = elements.borderThick.value;
+                postEl.style.border = borderWidth > 0 ? `${borderWidth}px solid ${elements.borderColor.value}` : 'none';
+                if (elements.borderThickV) elements.borderThickV.innerText = borderWidth + 'px';
+                if (elements.borderColorHex && document.activeElement !== elements.borderColorHex) elements.borderColorHex.value = elements.borderColor.value;
+            }
+
+            // Sync Hex
+            if (elements.bgProductHex && document.activeElement !== elements.bgProductHex) elements.bgProductHex.value = elements.bgProduct.value;
+            if (elements.bgInfoHex && document.activeElement !== elements.bgInfoHex) elements.bgInfoHex.value = elements.bgInfo.value;
+            if (elements.barColorHex && document.activeElement !== elements.barColorHex) elements.barColorHex.value = elements.barColor.value;
+
+            // Helper for Transforms
+            const setTransform = (el, x, y, rot, scale = 1) => {
+                if (!el) return;
+                el.style.transform = `translate(${x}px, ${y}px) rotate(${rot}deg) scale(${scale})`;
+            };
+
+            // Imagem Produto
+            if (elements.productImg && elements.productImage) {
+                const img = elements.productImg;
+                if (img.src !== elements.productImage.value && elements.productImage.value) img.src = elements.productImage.value;
+                setTransform(
+                    img,
+                    elements.imgX.value,
+                    elements.imgY.value,
+                    elements.imgRot.value,
+                    elements.imgZoom.value / 100
+                );
+                // Sombra na imagem
+                const shadowValue = elements.imgShadow?.value || 0;
+                img.style.filter = shadowValue > 0 ? `drop-shadow(0 ${shadowValue / 2}px ${shadowValue}px rgba(0,0,0,0.4))` : 'none';
+                if (elements.imgShadowV) elements.imgShadowV.innerText = shadowValue;
+            }
+            if (elements.imgZoomV) elements.imgZoomV.innerText = elements.imgZoom.value + '%';
+            if (elements.imgRotV) elements.imgRotV.innerText = elements.imgRot.value + '°';
+            if (elements.imgXV) elements.imgXV.innerText = elements.imgX.value + 'px';
+            if (elements.imgYV) elements.imgYV.innerText = elements.imgY.value + 'px';
+
+            // Logo
+            if (elements.logoWrap) {
+                const logo = elements.logoWrap;
+                logo.style.display = elements.logoVisible.checked ? 'block' : 'none';
+                // Logo uses absolute pos originally, let's keep it but allow offset
+                logo.style.left = elements.logoX.value + 'px';
+                logo.style.top = elements.logoY.value + 'px';
+                logo.style.transform = `scale(${elements.logoSize.value / 100}) rotate(${elements.logoRot.value}deg)`;
+
+                if (elements.logoImg) elements.logoImg.style.filter = elements.logoShadow.value > 0 ? `drop-shadow(0 2px ${elements.logoShadow.value}px rgba(0,0,0,0.4))` : 'none';
+            }
+            if (elements.logoSizeV) elements.logoSizeV.innerText = elements.logoSize.value + '%';
+            if (elements.logoXV) elements.logoXV.innerText = elements.logoX.value + 'px';
+            if (elements.logoYV) elements.logoYV.innerText = elements.logoY.value + 'px';
+
+            // Nome Produto
+            if (elements.nameDisplay) {
+                const nameEl = elements.nameDisplay;
+                nameEl.style.display = elements.nameVisible.checked ? 'block' : 'none';
+                nameEl.innerText = elements.productName.value;
+                nameEl.style.fontFamily = elements.nameFont.value;
+                nameEl.style.color = elements.nameColor.value;
+                nameEl.style.fontSize = elements.nameSize.value + 'px';
+                setTransform(nameEl, elements.nameX.value, elements.nameY.value, elements.nameRot.value);
+            }
+            if (elements.nameSizeV) elements.nameSizeV.innerText = elements.nameSize.value + 'px';
+            if (elements.nameColorHex && document.activeElement !== elements.nameColorHex) elements.nameColorHex.value = elements.nameColor.value;
+
+            // Preço Original
+            if (elements.origDisplay) {
+                const origEl = elements.origDisplay;
+                origEl.style.display = elements.origVisible.checked ? 'block' : 'none';
+                origEl.innerText = elements.priceOriginal.value;
+                origEl.style.fontFamily = elements.origFont.value;
+                origEl.style.color = elements.origColor.value;
+                origEl.style.fontSize = elements.origSize.value + 'px';
+                setTransform(origEl, elements.origX.value, elements.origY.value, elements.origRot.value);
+            }
+            if (elements.origSizeV) elements.origSizeV.innerText = elements.origSize.value + 'px';
+
+            // Preço Promo
+            if (elements.promoDisplay) {
+                const promoEl = elements.promoDisplay;
+                promoEl.style.display = elements.promoVisible.checked ? 'block' : 'none';
+                promoEl.innerText = elements.pricePromo.value;
+                promoEl.style.fontFamily = elements.promoFont.value;
+                promoEl.style.color = elements.promoColor.value;
+                promoEl.style.fontSize = elements.promoSize.value + 'px';
+                setTransform(promoEl, elements.promoX.value, elements.promoY.value, elements.promoRot.value);
+            }
+            if (elements.promoSizeV) elements.promoSizeV.innerText = elements.promoSize.value + 'px';
+            if (elements.promoColorHex && document.activeElement !== elements.promoColorHex) elements.promoColorHex.value = elements.promoColor.value;
+
+            // Badge Inferior
+            if (elements.badgeDisplay) {
+                const badgeEl = elements.badgeDisplay;
+                badgeEl.style.display = elements.badgeVisible.checked ? 'inline-block' : 'none';
+                badgeEl.innerText = elements.badgeText.value;
+                badgeEl.style.background = elements.badgeBg.value;
+                badgeEl.style.color = elements.badgeColor.value;
+                badgeEl.style.fontSize = elements.badgeSize.value + 'px';
+                if (elements.badgeSizeV) elements.badgeSizeV.innerText = elements.badgeSize.value + 'px';
+                badgeEl.style.padding = `${elements.badgePadding.value}px ${elements.badgePadding.value * 2}px`;
+                setTransform(badgeEl, elements.badgeX.value, elements.badgeY.value, elements.badgeRot.value);
+            }
+            if (elements.badgeBgHex && document.activeElement !== elements.badgeBgHex) elements.badgeBgHex.value = elements.badgeBg.value;
+
+            // Badge Flutuante
+            if (elements.floatBadge) {
+                const floatEl = elements.floatBadge;
+                floatEl.style.display = elements.floatVisible.checked ? 'block' : 'none';
+                floatEl.innerText = elements.floatText.value;
+                floatEl.style.background = elements.floatBg.value;
+                floatEl.style.color = elements.floatColor.value;
+                floatEl.style.fontSize = elements.floatSize.value + 'px';
+                if (elements.floatSizeV) elements.floatSizeV.innerText = elements.floatSize.value + 'px';
+                // Uses % positioning
+                floatEl.style.right = (100 - elements.floatX.value) + '%';
+                floatEl.style.top = elements.floatY.value + '%';
+                floatEl.style.transform = `rotate(${elements.floatRot.value}deg)`;
+            }
+            if (elements.floatBgHex && document.activeElement !== elements.floatBgHex) elements.floatBgHex.value = elements.floatBg.value;
+
+            // Loja
+            if (elements.storeDisplay) {
+                const storeEl = elements.storeDisplay;
+                storeEl.style.display = elements.storeVisible.checked ? 'inline' : 'none';
+                storeEl.innerText = `🏪 ${elements.storeName.value}`;
+                storeEl.style.color = elements.storeColor.value;
+                storeEl.style.fontSize = elements.storeSize.value + 'px';
+                // Store is inside footer flex, transform works relative to flow
+                storeEl.style.display = elements.storeVisible.checked ? 'inline-block' : 'none'; // fix for transform
+                setTransform(storeEl, elements.storeX.value, elements.storeY.value, elements.storeRot.value);
+            }
+
+            // Loja (Imagem Logo)
+            if (elements.storeLogoDisplay) {
+                const sl = elements.storeLogoDisplay;
+                const vis = elements.storeLogoVisible.checked;
+                sl.style.display = vis ? 'inline-block' : 'none';
+                if (vis) {
+                    if (elements.storeLogoSrc.value && sl.src !== elements.storeLogoSrc.value) sl.src = elements.storeLogoSrc.value;
+                    sl.style.height = elements.storeLogoSize.value + 'px';
+                    setTransform(sl, elements.storeLogoX.value, elements.storeLogoY.value, elements.storeLogoRot.value);
+
+                    if (elements.storeLogoSizeV) elements.storeLogoSizeV.innerText = elements.storeLogoSize.value + 'px';
+                    if (elements.storeLogoXV) elements.storeLogoXV.innerText = elements.storeLogoX.value;
+                    if (elements.storeLogoYV) elements.storeLogoYV.innerText = elements.storeLogoY.value;
+                    if (elements.storeLogoRotV) elements.storeLogoRotV.innerText = elements.storeLogoRot.value + '°';
+                }
+            }
+
+            // CTA
+            if (elements.ctaDisplay) {
+                const ctaEl = elements.ctaDisplay;
+                ctaEl.style.display = elements.ctaVisible.checked ? 'inline-block' : 'none';
+                ctaEl.innerText = elements.ctaText.value;
+                ctaEl.style.color = elements.ctaColor.value;
+                ctaEl.style.fontSize = elements.ctaSize.value + 'px';
+                setTransform(ctaEl, elements.ctaX.value, elements.ctaY.value, elements.ctaRot.value);
+            }
+            if (elements.ctaColorHex && document.activeElement !== elements.ctaColorHex) elements.ctaColorHex.value = elements.ctaColor.value;
+        }
+
+        function downloadImage() {
+            const format = document.getElementById('exportFormat')?.value || 'png';
+
+            const formatConfig = {
+                png: { mime: 'image/png', ext: 'png', quality: 1 },
+                jpeg: { mime: 'image/jpeg', ext: 'jpg', quality: 0.9 },
+                webp: { mime: 'image/webp', ext: 'webp', quality: 0.9 }
+            };
+
+            const config = formatConfig[format] || formatConfig.png;
+
+            html2canvas(elements['instagram-post'], {
+                scale: 2,
+                useCORS: true,
+                allowTaint: true
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = `promo-post.${config.ext}`;
+                link.href = canvas.toDataURL(config.mime, config.quality);
+                link.click();
+                showToast(`📥 Imagem salva como ${config.ext.toUpperCase()}!`, 'success');
+            });
+        }
+
+        function resetAll() {
+            location.reload();
+        }
+
+        // ==========================================
+        // COPIAR PARA CLIPBOARD
+        // ==========================================
+        async function copyToClipboard() {
+            showToast('📋 Gerando imagem...', 'info', 2000);
+
+            try {
+                const canvas = await html2canvas(elements['instagram-post'], {
+                    scale: 2,
+                    useCORS: true,
+                    allowTaint: true
+                });
+
+                canvas.toBlob(async (blob) => {
+                    try {
+                        await navigator.clipboard.write([
+                            new ClipboardItem({ 'image/png': blob })
+                        ]);
+                        showToast('✅ Imagem copiada para a área de transferência!', 'success');
+                    } catch (err) {
+                        // Fallback: tentar abrir em nova aba
+                        const url = URL.createObjectURL(blob);
+                        window.open(url, '_blank');
+                        showToast('⚠️ Não foi possível copiar. Imagem aberta em nova aba.', 'info');
+                    }
+                }, 'image/png');
+            } catch (e) {
+                showToast('❌ Erro ao gerar imagem', 'error');
+                console.error('Erro ao copiar:', e);
+            }
+        }
+
+        // ==========================================
+        // CENTRALIZAR IMAGEM
+        // ==========================================
+        function centerImage() {
+            if (elements.imgX) elements.imgX.value = 0;
+            if (elements.imgY) elements.imgY.value = 0;
+            if (elements.imgZoom) elements.imgZoom.value = 100;
+            updatePreview();
+            showToast('🎯 Imagem centralizada!', 'success');
+        }
+
+        // ==========================================
+        // OTIMIZAR TUDO
+        // ==========================================
+        function optimizeAll() {
+            // Centralizar imagem principal
+            if (elements.imgX) elements.imgX.value = 0;
+            if (elements.imgY) elements.imgY.value = 0;
+            if (elements.imgZoom) elements.imgZoom.value = 100;
+            if (elements.imgRot) elements.imgRot.value = 0;
+
+            // Centralizar imagem secundária se visível
+            if (elements.imgX2) elements.imgX2.value = 0;
+            if (elements.imgY2) elements.imgY2.value = 0;
+
+            // Centralizar elementos de texto
+            if (elements.nameX) elements.nameX.value = 0;
+            if (elements.nameY) elements.nameY.value = 0;
+            if (elements.origX) elements.origX.value = 0;
+            if (elements.origY) elements.origY.value = 0;
+            if (elements.promoX) elements.promoX.value = 0;
+            if (elements.promoY) elements.promoY.value = 0;
+
+            updatePreview();
+            showToast('⚡ Tudo otimizado e centralizado!', 'success');
+        }
+
+        // ==========================================
+        // COMPRIMIR IMAGEM (Auto)
+        // ==========================================
+        const MAX_IMAGE_SIZE = 1500; // pixels
+        const COMPRESSION_QUALITY = 0.85;
+
+        function compressImage(file, callback) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const img = new Image();
+                img.onload = function () {
+                    // Se a imagem é pequena, não comprimir
+                    if (img.width <= MAX_IMAGE_SIZE && img.height <= MAX_IMAGE_SIZE && file.size < 2 * 1024 * 1024) {
+                        callback(e.target.result);
+                        return;
+                    }
+
+                    // Calcular novo tamanho mantendo proporção
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > height && width > MAX_IMAGE_SIZE) {
+                        height = (height / width) * MAX_IMAGE_SIZE;
+                        width = MAX_IMAGE_SIZE;
+                    } else if (height > MAX_IMAGE_SIZE) {
+                        width = (width / height) * MAX_IMAGE_SIZE;
+                        height = MAX_IMAGE_SIZE;
+                    }
+
+                    // Criar canvas e redimensionar
+                    const canvas = document.createElement('canvas');
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    // Converter para base64 comprimido
+                    const compressedDataUrl = canvas.toDataURL('image/jpeg', COMPRESSION_QUALITY);
+
+                    const originalSize = (file.size / 1024).toFixed(0);
+                    const newSize = (compressedDataUrl.length * 0.75 / 1024).toFixed(0);
+                    showToast(`🗜️ Imagem comprimida: ${originalSize}KB → ${newSize}KB`, 'info');
+
+                    callback(compressedDataUrl);
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function loadImage(input, targetId) {
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+
+                // Usar compressão automática
+                compressImage(file, function (dataUrl) {
+                    if (elements[targetId]) {
+                        elements[targetId].value = dataUrl;
+                        updatePreview();
+                    }
+                });
+            }
+        }
+
+        // ==========================================
+        // REMOVER FUNDO (Background Removal)
+        // ==========================================
+        let bgRemovalModule = null;
+
+        async function loadBgRemovalLibrary() {
+            if (bgRemovalModule) return true;
+
+            showToast('⏳ Carregando modelo de IA (~5MB)... aguarde', 'info', 8000);
+
+            try {
+                // Usar dynamic import com ESM
+                bgRemovalModule = await import('https://esm.sh/@imgly/background-removal@1.4.5');
+                return true;
+            } catch (e) {
+                console.error('Erro ao carregar bg-removal:', e);
+                showToast('❌ Erro ao carregar biblioteca. Tente novamente.', 'error');
+                return false;
+            }
+        }
+
+        async function removeBackground() {
+            const imageSrc = elements.productImage?.value;
+            if (!imageSrc) {
+                showToast('⚠️ Carregue uma imagem primeiro', 'error');
+                return;
+            }
+
+            // Carregar biblioteca se necessário
+            const loaded = await loadBgRemovalLibrary();
+            if (!loaded) return;
+
+            showToast('✂️ Processando... isso pode levar 10-30 segundos', 'info', 30000);
+
+            try {
+                // Converter base64/URL para blob
+                let imageBlob;
+                if (imageSrc.startsWith('data:')) {
+                    const response = await fetch(imageSrc);
+                    imageBlob = await response.blob();
+                } else {
+                    const response = await fetch(imageSrc);
+                    imageBlob = await response.blob();
+                }
+
+                // Usar a biblioteca para remover fundo
+                const result = await bgRemovalModule.removeBackground(imageBlob, {
+                    progress: (key, current, total) => {
+                        if (key === 'compute:inference') {
+                            const pct = Math.round((current / total) * 100);
+                            console.log(`Progresso: ${pct}%`);
+                        }
+                    }
+                });
+
+                // Converter resultado para base64
+                const reader = new FileReader();
+                reader.onload = function () {
+                    elements.productImage.value = reader.result;
+                    updatePreview();
+                    showToast('✅ Fundo removido com sucesso!', 'success');
+                };
+                reader.readAsDataURL(result);
+
+            } catch (e) {
+                showToast('❌ Erro ao remover fundo. Tente com outra imagem.', 'error');
+                console.error('Erro na remoção de fundo:', e);
+            }
+        }
+
+        // ==========================================
+        // TEMPLATES PRÉ-DEFINIDOS
+        // ==========================================
+        const TEMPLATES = {
+            olhao: {
+                name: 'Olhão na Promo',
+                bgProduct: '#ffffff',
+                bgInfo: '#1E3A8A',
+                barColor: '#60A5FA',
+                barThick: 4,
+                nameColor: '#ffffff',
+                nameFont: 'Poppins',
+                nameSize: 24,
+                origColor: '#94a3b8',
+                origFont: 'Inter',
+                origSize: 14,
+                promoColor: '#D4AF37',
+                promoFont: 'Poppins',
+                promoSize: 48,
+                badgeBg: '#D4AF37',
+                badgeColor: '#1E3A8A',
+                badgeSize: 14,
+                floatBg: '#60A5FA',
+                floatColor: '#ffffff',
+                storeColor: '#94a3b8',
+                ctaColor: '#60A5FA',
+                ctaText: '👆 Link na bio'
+            },
+            oferta: {
+                name: 'Promoção Quente',
+                bgProduct: '#ffffff',
+                bgInfo: '#1A237E',
+                barColor: '#FF9800',
+                barThick: 6,
+                nameColor: '#ffffff',
+                nameFont: 'Montserrat',
+                nameSize: 22,
+                origColor: '#94a3b8',
+                origFont: 'Inter',
+                origSize: 14,
+                promoColor: '#FF9800',
+                promoFont: 'Montserrat',
+                promoSize: 44,
+                badgeBg: '#D32F2F',
+                badgeColor: '#ffffff',
+                badgeSize: 14,
+                floatBg: '#D32F2F',
+                floatColor: '#ffffff',
+                storeColor: '#94a3b8',
+                ctaColor: '#FF9800',
+                ctaText: '🔥 Aproveite!'
+            },
+            modern: {
+                name: 'Moderno Clean',
+                bgProduct: '#f8f9fa',
+                bgInfo: '#212529',
+                barColor: '#0d6efd',
+                barThick: 2,
+                nameColor: '#ffffff',
+                nameFont: 'Inter',
+                nameSize: 20,
+                origColor: '#94a3b8',
+                origFont: 'Inter',
+                origSize: 14,
+                promoColor: '#0d6efd',
+                promoFont: 'Inter',
+                promoSize: 42,
+                badgeBg: '#0d6efd',
+                badgeColor: '#ffffff',
+                badgeSize: 14,
+                floatBg: '#dc3545',
+                floatColor: '#ffffff',
+                storeColor: '#94a3b8',
+                ctaColor: '#0d6efd',
+                ctaText: 'Ver oferta'
+            },
+            bold: {
+                name: 'Ousado Urgência',
+                bgProduct: '#000000',
+                bgInfo: '#ff0000',
+                barColor: '#ffff00',
+                barThick: 8,
+                nameColor: '#ffffff',
+                nameFont: 'Rubik',
+                nameSize: 26,
+                origColor: '#ffffff',
+                origFont: 'Rubik',
+                origSize: 16,
+                promoColor: '#ffff00',
+                promoFont: 'Rubik',
+                promoSize: 50,
+                badgeBg: '#ffff00',
+                badgeColor: '#000000',
+                badgeSize: 16,
+                floatBg: '#ff0000',
+                floatColor: '#ffffff',
+                storeColor: '#ffffff',
+                ctaColor: '#ffff00',
+                ctaText: '⚡ CORRE!'
+            },
+            rosa: {
+                name: 'Elegante Rosa',
+                bgProduct: '#fff0f5',
+                bgInfo: '#831843',
+                barColor: '#f472b6',
+                barThick: 3,
+                nameColor: '#ffffff',
+                nameFont: 'Playfair Display',
+                nameSize: 22,
+                origColor: '#fda4af',
+                origFont: 'Inter',
+                origSize: 13,
+                promoColor: '#f472b6',
+                promoFont: 'Playfair Display',
+                promoSize: 44,
+                badgeBg: '#f472b6',
+                badgeColor: '#831843',
+                badgeSize: 13,
+                floatBg: '#ec4899',
+                floatColor: '#ffffff',
+                storeColor: '#fda4af',
+                ctaColor: '#f472b6',
+                ctaText: '💖 Garanta já!'
+            },
+            blackfriday: {
+                name: 'Black Friday',
+                bgProduct: '#18181b',
+                bgInfo: '#000000',
+                barColor: '#facc15',
+                barThick: 6,
+                nameColor: '#ffffff',
+                nameFont: 'Bebas Neue',
+                nameSize: 28,
+                origColor: '#71717a',
+                origFont: 'Inter',
+                origSize: 14,
+                promoColor: '#facc15',
+                promoFont: 'Bebas Neue',
+                promoSize: 52,
+                badgeBg: '#facc15',
+                badgeColor: '#000000',
+                badgeSize: 15,
+                floatBg: '#ef4444',
+                floatColor: '#ffffff',
+                storeColor: '#71717a',
+                ctaColor: '#facc15',
+                ctaText: '🖤 BLACK FRIDAY'
+            },
+            verde: {
+                name: 'Natureza Verde',
+                bgProduct: '#ecfdf5',
+                bgInfo: '#14532d',
+                barColor: '#22c55e',
+                barThick: 4,
+                nameColor: '#ffffff',
+                nameFont: 'Quicksand',
+                nameSize: 22,
+                origColor: '#86efac',
+                origFont: 'Quicksand',
+                origSize: 13,
+                promoColor: '#4ade80',
+                promoFont: 'Quicksand',
+                promoSize: 44,
+                badgeBg: '#22c55e',
+                badgeColor: '#14532d',
+                badgeSize: 13,
+                floatBg: '#16a34a',
+                floatColor: '#ffffff',
+                storeColor: '#86efac',
+                ctaColor: '#4ade80',
+                ctaText: '🌿 Compre agora'
+            },
+            minimal: {
+                name: 'Minimalista',
+                bgProduct: '#ffffff',
+                bgInfo: '#f5f5f5',
+                barColor: '#262626',
+                barThick: 1,
+                nameColor: '#171717',
+                nameFont: 'Inter',
+                nameSize: 18,
+                origColor: '#a3a3a3',
+                origFont: 'Inter',
+                origSize: 12,
+                promoColor: '#171717',
+                promoFont: 'Inter',
+                promoSize: 36,
+                badgeBg: '#262626',
+                badgeColor: '#ffffff',
+                badgeSize: 12,
+                floatBg: '#171717',
+                floatColor: '#ffffff',
+                storeColor: '#737373',
+                ctaColor: '#525252',
+                ctaText: 'Saiba mais →'
+            },
+            natal: {
+                name: '🎄 Natal',
+                bgProduct: '#1a472a',
+                bgInfo: '#8b0000',
+                barColor: '#ffd700',
+                barThick: 5,
+                nameColor: '#ffffff',
+                nameFont: 'Playfair Display',
+                nameSize: 24,
+                origColor: '#ffb6c1',
+                origFont: 'Inter',
+                origSize: 13,
+                promoColor: '#ffd700',
+                promoFont: 'Bebas Neue',
+                promoSize: 52,
+                badgeBg: '#ffd700',
+                badgeColor: '#8b0000',
+                badgeSize: 14,
+                floatBg: '#228b22',
+                floatColor: '#ffffff',
+                storeColor: '#ffb6c1',
+                ctaColor: '#ffd700',
+                ctaText: '🎁 Presente perfeito!'
+            },
+            pascoa: {
+                name: '🐰 Páscoa',
+                bgProduct: '#fff8dc',
+                bgInfo: '#8b4513',
+                barColor: '#ff69b4',
+                barThick: 4,
+                nameColor: '#ffffff',
+                nameFont: 'Quicksand',
+                nameSize: 22,
+                origColor: '#deb887',
+                origFont: 'Quicksand',
+                origSize: 13,
+                promoColor: '#ff69b4',
+                promoFont: 'Quicksand',
+                promoSize: 46,
+                badgeBg: '#ff69b4',
+                badgeColor: '#8b4513',
+                badgeSize: 14,
+                floatBg: '#9370db',
+                floatColor: '#ffffff',
+                storeColor: '#deb887',
+                ctaColor: '#ff69b4',
+                ctaText: '🥚 Garanta o seu!'
+            },
+            diadasmaes: {
+                name: '💐 Dia das Mães',
+                bgProduct: '#ffe4e1',
+                bgInfo: '#c71585',
+                barColor: '#ff1493',
+                barThick: 4,
+                nameColor: '#ffffff',
+                nameFont: 'Playfair Display',
+                nameSize: 22,
+                origColor: '#ffb6c1',
+                origFont: 'Inter',
+                origSize: 13,
+                promoColor: '#ff69b4',
+                promoFont: 'Playfair Display',
+                promoSize: 48,
+                badgeBg: '#ff1493',
+                badgeColor: '#ffffff',
+                badgeSize: 14,
+                floatBg: '#ff69b4',
+                floatColor: '#ffffff',
+                storeColor: '#ffb6c1',
+                ctaColor: '#ff1493',
+                ctaText: '💝 Para ela!'
+            },
+            cybermonday: {
+                name: '💻 Cyber Monday',
+                bgProduct: '#0a0a0a',
+                bgInfo: '#1a1a2e',
+                barColor: '#00ffff',
+                barThick: 3,
+                nameColor: '#ffffff',
+                nameFont: 'Outfit',
+                nameSize: 22,
+                origColor: '#666666',
+                origFont: 'Outfit',
+                origSize: 14,
+                promoColor: '#00ffff',
+                promoFont: 'Bebas Neue',
+                promoSize: 50,
+                badgeBg: '#00ffff',
+                badgeColor: '#0a0a0a',
+                badgeSize: 14,
+                floatBg: '#ff00ff',
+                floatColor: '#ffffff',
+                storeColor: '#888888',
+                ctaColor: '#00ffff',
+                ctaText: '⚡ MEGA DESCONTO'
+            }
+        };
+
+        function applyTemplate(templateName) {
+            const template = TEMPLATES[templateName];
+            if (!template) return;
+
+            Object.keys(template).forEach(key => {
+                if (key === 'name') return;
+                if (elements[key]) {
+                    elements[key].value = template[key];
+                    // Sync hex inputs
+                    const hexKey = key + 'Hex';
+                    if (elements[hexKey]) {
+                        elements[hexKey].value = template[key];
+                    }
+                }
+            });
+
+            updatePreview();
+            showToast(`✅ Template "${template.name}" aplicado!`, 'success');
+        }
+
+        // ==========================================
+        // SISTEMA DE TOAST
+        // ==========================================
+        function showToast(message, type = 'info', duration = 3000) {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.animation = 'slideIn 0.3s ease reverse';
+                setTimeout(() => toast.remove(), 300);
+            }, duration);
+        }
+
+        // ==========================================
+        // MODO ESCURO/CLARO
+        // ==========================================
+        function toggleTheme() {
+            const body = document.body;
+            const isLight = body.classList.toggle('light-mode');
+            const btn = document.getElementById('themeToggle');
+
+            if (btn) {
+                btn.textContent = isLight ? '☀️' : '🌙';
+                btn.title = isLight ? 'Mudar para modo escuro' : 'Mudar para modo claro';
+            }
+
+            localStorage.setItem('promo_theme', isLight ? 'light' : 'dark');
+            showToast(isLight ? '☀️ Modo claro ativado' : '🌙 Modo escuro ativado', 'info', 1500);
+        }
+
+        function loadSavedTheme() {
+            const saved = localStorage.getItem('promo_theme');
+            if (saved === 'light') {
+                document.body.classList.add('light-mode');
+                const btn = document.getElementById('themeToggle');
+                if (btn) {
+                    btn.textContent = '☀️';
+                    btn.title = 'Mudar para modo escuro';
+                }
+            }
+        }
+
+        // ==========================================
+        // SISTEMA DE FAVORITOS
+        // ==========================================
+        function captureCurrentConfig() {
+            return {
+                bgProduct: elements.bgProduct?.value,
+                bgInfo: elements.bgInfo?.value,
+                barColor: elements.barColor?.value,
+                barThick: elements.barThick?.value,
+                infoHeight: elements.infoHeight?.value,
+                productImage: elements.productImage?.value,
+                imgZoom: elements.imgZoom?.value,
+                imgRot: elements.imgRot?.value,
+                imgX: elements.imgX?.value,
+                imgY: elements.imgY?.value,
+                logoVisible: elements.logoVisible?.checked,
+                logoSize: elements.logoSize?.value,
+                productName: elements.productName?.value,
+                nameFont: elements.nameFont?.value,
+                nameColor: elements.nameColor?.value,
+                nameSize: elements.nameSize?.value,
+                priceOriginal: elements.priceOriginal?.value,
+                origFont: elements.origFont?.value,
+                origColor: elements.origColor?.value,
+                origSize: elements.origSize?.value,
+                pricePromo: elements.pricePromo?.value,
+                promoFont: elements.promoFont?.value,
+                promoColor: elements.promoColor?.value,
+                promoSize: elements.promoSize?.value,
+                badgeText: elements.badgeText?.value,
+                badgeBg: elements.badgeBg?.value,
+                badgeColor: elements.badgeColor?.value,
+                badgeSize: elements.badgeSize?.value,
+                floatText: elements.floatText?.value,
+                floatBg: elements.floatBg?.value,
+                floatColor: elements.floatColor?.value,
+                storeName: elements.storeName?.value,
+                storeColor: elements.storeColor?.value,
+                ctaText: elements.ctaText?.value,
+                ctaColor: elements.ctaColor?.value
+            };
+        }
+
+        function applyConfig(config) {
+            Object.keys(config).forEach(key => {
+                if (elements[key]) {
+                    if (typeof config[key] === 'boolean') {
+                        elements[key].checked = config[key];
+                    } else {
+                        elements[key].value = config[key];
+                    }
+                    // Sync hex inputs
+                    const hexKey = key + 'Hex';
+                    if (elements[hexKey] && typeof config[key] === 'string' && config[key].startsWith('#')) {
+                        elements[hexKey].value = config[key];
+                    }
+                }
+            });
+        }
+
+        function getFavorites() {
+            try {
+                const stored = localStorage.getItem('promo_favorites');
+                return stored ? JSON.parse(stored) : [];
+            } catch (e) {
+                console.error('Erro ao carregar favoritos:', e);
+                return [];
+            }
+        }
+
+        function saveCurrentAsFavorite() {
+            const name = prompt('Nome do favorito:');
+            if (!name) return;
+
+            const config = captureCurrentConfig();
+            const favorite = {
+                id: Date.now(),
+                name: name,
+                config: config,
+                usage_count: 0
+            };
+
+            const favorites = getFavorites();
+            favorites.push(favorite);
+            localStorage.setItem('promo_favorites', JSON.stringify(favorites));
+
+            renderFavorites();
+            showToast(`✅ Favorito "${name}" salvo!`, 'success');
+        }
+
+        function loadFavorite(id) {
+            const favorites = getFavorites();
+            const favorite = favorites.find(f => f.id === id);
+
+            if (!favorite) {
+                showToast('❌ Favorito não encontrado', 'error');
+                return;
+            }
+
+            applyConfig(favorite.config);
+            favorite.usage_count = (favorite.usage_count || 0) + 1;
+            localStorage.setItem('promo_favorites', JSON.stringify(favorites));
+
+            updatePreview();
+            renderFavorites();
+            showToast(`✅ Favorito "${favorite.name}" carregado!`, 'success');
+        }
+
+        function deleteFavorite(id) {
+            if (!confirm('Remover este favorito?')) return;
+
+            let favorites = getFavorites();
+            favorites = favorites.filter(f => f.id !== id);
+            localStorage.setItem('promo_favorites', JSON.stringify(favorites));
+
+            renderFavorites();
+            showToast('🗑️ Favorito removido', 'info');
+        }
+
+        // ==========================================
+        // EXPORT/IMPORT JSON
+        // ==========================================
+        function exportConfig() {
+            const config = captureCurrentConfig();
+            const dataStr = JSON.stringify(config, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+
+            const link = document.createElement('a');
+            link.download = 'promo-config-' + new Date().toISOString().slice(0, 10) + '.json';
+            link.href = url;
+            link.click();
+
+            URL.revokeObjectURL(url);
+            showToast('📤 Configuração exportada!', 'success');
+        }
+
+        function importConfig(input) {
+            if (!input.files || !input.files[0]) return;
+
+            const file = input.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                try {
+                    const config = JSON.parse(e.target.result);
+                    applyConfig(config);
+                    updatePreview();
+                    showToast('📥 Configuração importada!', 'success');
+                } catch (err) {
+                    showToast('❌ Erro ao ler arquivo JSON', 'error');
+                    console.error('Import error:', err);
+                }
+            };
+
+            reader.readAsText(file);
+            input.value = ''; // Reset para permitir reimportar mesmo arquivo
+        }
+
+        function renderFavorites() {
+            const favorites = getFavorites();
+            const container = document.getElementById('favoritesList');
+            if (!container) return;
+
+            if (favorites.length === 0) {
+                container.innerHTML = '<p style="font-size:11px; color:var(--text-secondary);">Nenhum favorito salvo ainda</p>';
+                return;
+            }
+
+            container.innerHTML = favorites.map(fav => `
+                <div style="display:flex; gap:8px; margin-top:8px; align-items:center;">
+                    <button class="btn btn-secondary" onclick="loadFavorite(${fav.id})" 
+                        style="flex:1; font-size:11px; padding:8px;" type="button">
+                        ${fav.name} ${fav.usage_count > 0 ? `(${fav.usage_count}x)` : ''}
+                    </button>
+                    <button onclick="deleteFavorite(${fav.id})" 
+                        style="background:#ef4444; color:white; border:none; padding:8px 10px; 
+                               border-radius:6px; cursor:pointer; font-size:11px;" type="button">
+                        ❌
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // ==========================================
+        // DUPLICAR ÚLTIMO
+        // ==========================================
+        let lastConfig = null;
+
+        // Wrap updatePreview to auto-save
+        const _originalUpdatePreview = updatePreview;
+        updatePreview = function () {
+            _originalUpdatePreview();
+            lastConfig = captureCurrentConfig();
+            try {
+                localStorage.setItem('promo_last_config', JSON.stringify(lastConfig));
+            } catch (e) { }
+        };
+
+        function loadLast() {
+            let config = lastConfig;
+
+            if (!config) {
+                try {
+                    const stored = localStorage.getItem('promo_last_config');
+                    config = stored ? JSON.parse(stored) : null;
+                } catch (e) { }
+            }
+
+            if (!config) {
+                showToast('⚠️ Nenhum post anterior encontrado', 'info');
+                return;
+            }
+
+            applyConfig(config);
+            updatePreview();
+            showToast('✅ Último post carregado!', 'success');
+        }
+
+        // ==========================================
+        // ATALHOS DE TECLADO
+        // ==========================================
+        document.addEventListener('keydown', (e) => {
+            // Ctrl+S = Download
+            if (e.ctrlKey && e.key === 's') {
+                e.preventDefault();
+                downloadImage();
+            }
+
+            // Ctrl+D = Salvar favorito
+            if (e.ctrlKey && e.key === 'd') {
+                e.preventDefault();
+                saveCurrentAsFavorite();
+            }
+
+            // Ctrl+L = Carregar último
+            if (e.ctrlKey && e.key === 'l') {
+                e.preventDefault();
+                loadLast();
+            }
+
+            // Ctrl+1,2,3,4 = Templates
+            if (e.ctrlKey && e.key >= '1' && e.key <= '4') {
+                e.preventDefault();
+                const templates = ['olhao', 'oferta', 'modern', 'bold'];
+                applyTemplate(templates[parseInt(e.key) - 1]);
+            }
+        });
+
+        // ==========================================
+        // INICIALIZAÇÃO
+        // ==========================================
+        document.addEventListener('DOMContentLoaded', () => {
+            initElements();
+
+            elements.sizeBtns.forEach((btn) => {
+                btn.addEventListener('click', () => applySizePreset(btn.dataset.preset));
+            });
+
+            if (document.getElementById('customApply')) document.getElementById('customApply').addEventListener('click', applyCustomSize);
+            document.getElementById('expandAll').addEventListener('click', () => setAllSections(false));
+            document.getElementById('collapseAll').addEventListener('click', () => setAllSections(true));
+
+            applySizePreset('instagram_square');
+            setAllSections(true);
+
+            // Renderizar favoritos salvos
+            renderFavorites();
+
+            // Aplicar template padrão na primeira vez
+            const hasUsedBefore = localStorage.getItem('promo_has_used');
+            if (!hasUsedBefore) {
+                applyTemplate('olhao');
+                localStorage.setItem('promo_has_used', 'true');
+            }
+
+            // Carregar tema salvo
+            loadSavedTheme();
+
+            updatePreview();
+        });
+    </script>
+</body>
+
+</html>
