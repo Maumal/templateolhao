@@ -1,0 +1,10 @@
+# Pasta de assets de marketing (vídeos e imagens grandes)
+/postfacil/
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Arquivos temporários
+*.tmp
+*.log
