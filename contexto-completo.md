@@ -44,13 +44,13 @@ git push -u origin main
 - [x] Criar `service-worker.js`
 - [x] Ícones PWA (192px e 512px)
 - [x] Meta tags Apple e Open Graph
-- [ ] Tornar layout mobile-first (menu hambúrguer)
-- [ ] Testar em celular
+- [x] Menu hambúrguer mobile-first
+- [ ] Testar em celular (após deploy)
 
-### 3. Deploy no Vercel
-- [ ] Conectar repo ao Vercel
-- [ ] Gerar link (ex: postfacil-xxx.vercel.app)
-- [ ] Testar funcionamento
+### 3. Deploy no Netlify ✅
+- [x] Conectar repo ao Netlify
+- [x] Link: **https://postfacil.netlify.app**
+- [ ] Testar funcionamento no celular
 
 ### 4. Configurar Hotmart
 - [ ] Criar produto no Hotmart
@@ -137,5 +137,6 @@ GitHub (Maumal):
 
 ---
 
-**Última atualização:** 2026-01-03 16:12  
-**Próxima ação:** Menu hambúrguer mobile-first → Testar em celular → Deploy Vercel
+**Última atualização:** 2026-01-03 16:32  
+**Link de produção:** https://postfacil.netlify.app  
+**Próxima ação:** Testar no celular → Configurar Hotmart
