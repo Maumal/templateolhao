@@ -450,11 +450,186 @@
             color: var(--text-secondary);
             border-top: 1px solid var(--bg-tertiary);
         }
+
+        /* ========== MOBILE RESPONSIVE ========== */
+
+        /* Botão Hambúrguer */
+        .hamburger-btn {
+            display: none;
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 1000;
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: var(--accent);
+            border: none;
+            cursor: pointer;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);
+            transition: transform 0.2s ease;
+        }
+
+        .hamburger-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .hamburger-btn span {
+            display: block;
+            width: 24px;
+            height: 3px;
+            background: var(--bg-primary);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Overlay */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 99;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+        }
+
+        /* Mobile Download Button */
+        .mobile-download-btn {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent) 0%, #f59e0b 100%);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(251, 191, 36, 0.5);
+            font-size: 24px;
+            transition: transform 0.2s ease;
+        }
+
+        .mobile-download-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Media Query para Mobile */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .hamburger-btn {
+                display: flex;
+            }
+
+            .sidebar-overlay {
+                display: block;
+                pointer-events: none;
+            }
+
+            .sidebar-overlay.active {
+                pointer-events: auto;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 85%;
+                max-width: 360px;
+                height: 100vh;
+                z-index: 100;
+                transition: left 0.3s ease;
+                box-shadow: 5px 0 30px rgba(0, 0, 0, 0.3);
+            }
+
+            .sidebar.open {
+                left: 0;
+            }
+
+            .sidebar-header {
+                padding-top: 20px;
+            }
+
+            .preview-area {
+                width: 100%;
+                min-height: 100vh;
+                padding: 80px 15px 100px 15px;
+                align-items: flex-start;
+            }
+
+            #instagram-post {
+                width: 100% !important;
+                max-width: 400px;
+                height: auto !important;
+                aspect-ratio: 1 / 1;
+            }
+
+            .mobile-download-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            /* Ocultar actions no sidebar em mobile (usamos o botão flutuante) */
+            .actions {
+                display: none;
+            }
+        }
+
+        /* Tablets */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .sidebar {
+                width: 320px;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <div class="sidebar">
+    <!-- Mobile: Botão Hambúrguer -->
+    <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Mobile: Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Mobile: Botão Download Flutuante -->
+    <button class="mobile-download-btn" id="mobileDownloadBtn" aria-label="Baixar imagem">
+        📥
+    </button>
+
+    <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <div style="display:flex; justify-content:space-between; align-items:center;">
                 <h1>📱 PostFácil</h1>
@@ -2294,6 +2469,43 @@
             loadSavedTheme();
 
             updatePreview();
+
+            // ========== MOBILE HAMBURGER MENU ==========
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+            const mobileDownloadBtn = document.getElementById('mobileDownloadBtn');
+
+            function toggleMobileMenu() {
+                hamburgerBtn.classList.toggle('active');
+                sidebar.classList.toggle('open');
+                sidebarOverlay.classList.toggle('active');
+                document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
+            }
+
+            function closeMobileMenu() {
+                hamburgerBtn.classList.remove('active');
+                sidebar.classList.remove('open');
+                sidebarOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            hamburgerBtn.addEventListener('click', toggleMobileMenu);
+            sidebarOverlay.addEventListener('click', closeMobileMenu);
+
+            // Botão download mobile usa a mesma função de download
+            mobileDownloadBtn.addEventListener('click', downloadImage);
+
+            // Fechar menu ao selecionar um template (melhor UX mobile)
+            document.querySelectorAll('.grid-2 .btn').forEach(btn => {
+                if (btn.onclick && btn.onclick.toString().includes('applyTemplate')) {
+                    btn.addEventListener('click', () => {
+                        if (window.innerWidth <= 768) {
+                            setTimeout(closeMobileMenu, 300);
+                        }
+                    });
+                }
+            });
         });
     </script>
 
