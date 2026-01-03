@@ -3,8 +3,24 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>🎨 PostFácil - Crie Posts de Promoção em 2 Cliques</title>
+
+    <!-- PWA Meta Tags -->
+    <meta name="description"
+        content="Crie posts de promoção profissionais para Instagram, WhatsApp e redes sociais em 2 cliques. Sem mensalidade!">
+    <meta name="theme-color" content="#fbbf24">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="PostFácil">
+    <link rel="apple-touch-icon" href="assets/icon-192.png">
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="PostFácil - Criador de Posts de Promoção">
+    <meta property="og:description" content="Crie posts profissionais em 2 cliques. Sem mensalidade!">
+    <meta property="og:image" content="assets/icon-512.png">
+    <meta property="og:type" content="website">
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;600;700;800&family=Montserrat:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&family=Rubik:wght@400;500;600;700;800;900&family=Nunito:wght@400;600;700;800;900&family=Work+Sans:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=Bebas+Neue&family=Oswald:wght@400;500;600;700&family=Raleway:wght@400;500;600;700;800&family=Quicksand:wght@400;500;600;700&family=Lato:wght@400;700;900&family=Open+Sans:wght@400;600;700;800&family=Playfair+Display:wght@400;600;700;800&display=swap"
         rel="stylesheet">
@@ -2279,6 +2295,21 @@
 
             updatePreview();
         });
+    </script>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then((registration) => {
+                        console.log('✅ PostFácil: Service Worker registrado com sucesso!');
+                    })
+                    .catch((error) => {
+                        console.log('❌ PostFácil: Erro ao registrar Service Worker:', error);
+                    });
+            });
+        }
     </script>
 </body>
 
