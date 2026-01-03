@@ -539,11 +539,13 @@
             transform: scale(1.1);
         }
 
-        /* Media Query para Mobile - Layout Vertical */
-        @media (max-width: 768px) {
+        /* Media Query para Mobile - Layout Vertical (Portrait) */
+        @media (max-width: 768px) and (orientation: portrait) {
             body {
                 flex-direction: column;
                 height: 100vh;
+                height: 100dvh;
+                /* Dynamic viewport height */
                 overflow: hidden;
             }
 
@@ -556,14 +558,14 @@
                 display: none;
             }
 
-            /* Preview no topo - fixo */
+            /* Preview no topo - menor */
             .preview-area {
                 order: 1;
                 width: 100%;
-                height: 40vh;
-                min-height: 200px;
-                max-height: 45vh;
-                padding: 10px;
+                height: 35vh;
+                min-height: 180px;
+                max-height: 35vh;
+                padding: 8px;
                 flex-shrink: 0;
                 display: flex;
                 align-items: center;
@@ -580,13 +582,13 @@
                 aspect-ratio: 1 / 1;
             }
 
-            /* Controles embaixo - scrollável */
+            /* Controles embaixo - mais espaço */
             .sidebar {
                 order: 2;
                 position: relative;
                 width: 100%;
-                height: 60vh;
-                max-height: calc(60vh - 70px);
+                height: 65vh;
+                flex: 1;
                 overflow-y: auto;
                 border-right: none;
                 border-top: none;
@@ -596,23 +598,34 @@
                 position: sticky;
                 top: 0;
                 z-index: 10;
-                padding: 10px 15px;
+                padding: 8px 12px;
             }
 
             .sidebar-header h1 {
-                font-size: 14px;
+                font-size: 13px;
             }
 
             .collapse-controls {
-                margin-top: 8px;
+                margin-top: 6px;
+                gap: 6px;
+            }
+
+            .collapse-controls .btn {
+                padding: 6px 8px;
+                font-size: 11px;
             }
 
             .section {
-                padding: 10px 15px;
+                padding: 8px 12px;
             }
 
             .section-title {
                 font-size: 9px;
+                margin-bottom: 8px;
+            }
+
+            .control-row {
+                margin-bottom: 8px;
             }
 
             /* Esconder miniatura - não precisa mais */
@@ -626,12 +639,75 @@
                 align-items: center;
                 justify-content: center;
                 position: fixed;
-                bottom: 15px;
-                right: 15px;
+                bottom: 10px;
+                right: 10px;
+                z-index: 200;
+                width: 50px;
+                height: 50px;
+            }
+
+            /* Esconder botão baixar da sidebar no mobile */
+            .actions {
+                display: none;
+            }
+        }
+
+        /* Mobile Landscape - Layout Horizontal */
+        @media (max-width: 900px) and (orientation: landscape) {
+            body {
+                flex-direction: row;
+                height: 100vh;
+                height: 100dvh;
+                overflow: hidden;
+            }
+
+            .hamburger-btn,
+            .sidebar-overlay,
+            .mobile-preview-thumb {
+                display: none !important;
+            }
+
+            /* Preview à esquerda */
+            .preview-area {
+                order: 1;
+                width: 45%;
+                height: 100%;
+                padding: 10px;
+                flex-shrink: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            #instagram-post {
+                width: auto !important;
+                height: 90% !important;
+                max-width: 100%;
+                max-height: 100%;
+                aspect-ratio: 1 / 1;
+            }
+
+            /* Controles à direita */
+            .sidebar {
+                order: 2;
+                width: 55%;
+                height: 100%;
+                overflow-y: auto;
+                border-right: none;
+            }
+
+            .sidebar-header {
+                padding: 8px 12px;
+            }
+
+            .mobile-download-btn {
+                display: flex;
+                position: fixed;
+                bottom: 10px;
+                right: 10px;
                 z-index: 200;
             }
 
-            /* Esconder botão baixar da sidebar no mobile - usar só o flutuante */
             .actions {
                 display: none;
             }
