@@ -50,13 +50,37 @@ git push -u origin main
 ### 3. Deploy no Netlify ✅
 - [x] Conectar repo ao Netlify
 - [x] Link: **https://postfacil.netlify.app**
-- [ ] Testar funcionamento no celular
+- [x] Versão estável desktop-only
 
-### 4. Configurar Hotmart
-- [ ] Criar produto no Hotmart
-- [ ] Ativar Hotmart Club (área de membros)
-- [ ] Colocar link do Vercel na área de membros
-- [ ] Configurar afiliados (40% comissão)
+### 4. Configurar Hotmart (PRÓXIMO PASSO)
+
+**Passo a passo:**
+
+1. **Criar produto** em hotmart.com → Produtos → Novo Produto
+   - Tipo: Produto Digital
+   - Nome: PostFácil - Criador de Posts de Promoção
+   - Preço: R$ 67
+   - Categoria: Ferramentas / Produtividade
+
+2. **Ativar Hotmart Club** (área de membros)
+   - Configurações do Produto → Área de Membros → Ativar
+
+3. **Criar módulo na área de membros**
+   - Título: "🚀 Acessar PostFácil"
+   - Conteúdo: 
+     ```
+     Clique no link abaixo para abrir o PostFácil:
+     
+     👉 https://postfacil.netlify.app
+     
+     Dica: Adicione à tela inicial do seu celular para acesso rápido!
+     ```
+
+4. **Configurar afiliados**
+   - Afiliação → Permitir afiliados
+   - Comissão: 40%
+   - Cookie: 60 dias
+   - Aprovação: Automática
 
 ---
 
@@ -137,6 +161,7 @@ GitHub (Maumal):
 
 ---
 
-**Última atualização:** 2026-01-03 16:32  
+**Última atualização:** 2026-01-03 17:09  
 **Link de produção:** https://postfacil.netlify.app  
-**Próxima ação:** Testar no celular → Configurar Hotmart
+**Link Olhão (esposa):** https://postfacil.netlify.app/olhao.html  
+**Próxima ação:** Configurar produto no Hotmart
