@@ -15,9 +15,9 @@
 
 **Redes Sociais:**
 - 📧 Email: ferramentasfaceis@gmail.com
-- 📺 YouTube: @ferramentasfaceis
-- 🎵 TikTok: @ferramentasfaceis
-- 📸 Instagram: @ferramentasfaceis
+- 📺 YouTube: https://www.youtube.com/@FerramentasFaceis
+- 🎵 TikTok: https://www.tiktok.com/@ferramentasfaceis
+- 📸 Instagram: https://www.instagram.com/ferramentasfaceis/
 
 ---
 
