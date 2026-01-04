@@ -1,177 +1,157 @@
 # 📋 CONTEXTO COMPLETO DO PROJETO
 
 > **📌 USO:** Cole este arquivo no início de novos chats para continuar de onde parou.
-> **Última atualização:** 2026-01-04 12:25
+> **Última atualização:** 2026-01-04 16:58
 
 ---
 
 ## 🎯 VISÃO GERAL
 
-**Nome do Projeto:** Linha de Produtos Afiliáveis Hotmart  
-**Conceito:** Ferramentas digitais simples (HTML offline → PWA mobile) que resolvem dores práticas de autônomos  
+**Marca Guarda-Chuva:** Ferramentas Fáceis  
+**Domínio:** ferramentasfaceis.com.br (registrado)  
+**Conceito:** Ferramentas digitais simples que resolvem dores práticas de autônomos  
 **Modelo:** Pagamento único, sem mensalidade, 40% comissão para afiliados  
 **Posicionamento:** "Funções isoladas de SaaS, vendidas sem mensalidade"
 
----
-
-## 📊 STATUS ATUAL (2026-01-04 - 12h24)
-
-### ✅ CONCLUÍDO
-
-**PostFácil - Ferramenta:**
-- ✅ Interface web desktop funcionando
-- ✅ WhatsApp clicável no footer
-- ✅ CTA com @ handle
-- ✅ Upload de logo personalizado
-- ✅ Deploy Netlify: https://postfacil.netlify.app
-
-**PostFácil - Hotmart:**
-- ✅ Produto criado na Hotmart
-- ✅ Descrição e vantagens preenchidas
-- ✅ Marketplace configurado (tags, perfil comprador)
-- ✅ Afiliados configurados (40%, 60 dias, automático)
-- ✅ Manual PDF criado (`entrega/MANUAL_POSTFACIL.pdf`)
-- ✅ Materiais para afiliados criados (`materiais-afiliados/`)
+**Redes Sociais:**
+- 📧 Email: ferramentasfaceis@gmail.com
+- 📺 YouTube: @ferramentasfaceis
+- 🎵 TikTok: @ferramentasfaceis
+- 📸 Instagram: @ferramentasfaceis
 
 ---
 
-## 🆕 NOVA ESTRATÉGIA DE DISTRIBUIÇÃO (2026-01-04)
+## 📊 STATUS ATUAL (2026-01-04 - 16h58)
 
-### Modelo: Demo Grátis + ZIP Pago
+### ✅ CONCLUÍDO HOJE
 
-**Problema anterior:**
-- Hotmart Club para proteger acesso
-- Complexidade desnecessária
-- Quem quer copiar código, copia de qualquer jeito
+**PostFácil - Versão DEMO:**
+- ✅ Export em preto e branco
+- ✅ Marca d'água "DEMO - PostFácil" (3x centralizado)
+- ✅ Logo fixo (não permite upload)
+- ✅ Removida seção "Imagem Secundária"
+- ✅ Logo abre maior por padrão (150%)
 
-**Nova abordagem (mais simples e eficaz):**
+**PostFácil - Versão PAGA (Sistema de Login):**
+- ✅ `login.html` - Página de login bonita
+- ✅ `app.html` - Ferramenta completa (sem restrições)
+- ✅ Senha: `postfacilsucesso`
+- ✅ Proteção via localStorage
 
-| Versão | Onde | O que tem | Preço |
-|--------|------|-----------|-------|
-| **Demo** | Netlify (público) | Funciona 100%, mas só 3 logos genéricos | Grátis |
-| **Completa** | ZIP (após compra) | Upload de logo próprio liberado | R$ 67 |
+**Marketing:**
+- ✅ `marketing/DESCRICAO_HOTMART_POSTFACIL.md` - Descrição direta e honesta
+- ✅ Link da demo incluído na descrição
+- ✅ Seções "Para quem é" / "Para quem NÃO é"
 
-### Demo (Netlify)
-- ✅ Todas as funcionalidades ativas
-- ✅ Todos os templates
-- ✅ Download de imagem funciona
-- ⚠️ Só 3 logos pré-definidos ("Sua Loja", "Minha Marca", "Promo Shop")
-- ❌ Upload de logo próprio desabilitado
-
-### Versão Completa (ZIP)
-- ✅ Tudo liberado
-- ✅ Upload de logo próprio
-- ✅ Arquivo local, funciona offline
-
-### Por que funciona:
-1. **Prova de valor** - Pessoa testa antes de pagar
-2. **Marketing grátis** - Demo pode viralizar
-3. **Limitação inteligente** - Quem quer usar profissionalmente PRECISA de logo próprio
-4. **Pragmático** - Quem quer piratear vai piratear, melhor converter quem quer pagar
-
-### Referências de mercado:
-- Canva (marca d'água no free)
-- Remove.bg (baixa resolução no free)
-- Figma (limite de projetos no free)
+**Infraestrutura:**
+- ⚠️ Netlify: limite atingido (pausado)
+- 🔄 Migração para Cloudflare Pages (em andamento)
 
 ---
 
-## 🛠️ PRÓXIMOS PASSOS (PostFácil)
+## � HOSPEDAGEM
 
-### Pendente:
-- [ ] Criar versão demo (desabilitar upload logo, adicionar 3 logos genéricos)
-- [ ] Criar assets: 3 logos genéricos em PNG
-- [ ] Adicionar botão "Comprar versão completa" na demo
-- [ ] Atualizar entrega na Hotmart (ZIP em vez de Hotmart Club)
-- [ ] Testar fluxo completo
-- [ ] Primeira venda!
+### Cloudflare Pages (em configuração)
+- **Domínio:** ferramentasfaceis.com.br
+- **Repositório:** github.com/Maumal/postfacil
+- **Branch:** main
+
+### URLs após configurar:
+| URL | Função |
+|-----|--------|
+| ferramentasfaceis.com.br | Landing page |
+| ferramentasfaceis.com.br/postfacil | Demo (P&B + marca d'água) |
+| ferramentasfaceis.com.br/postfacil/login.html | Login versão paga |
+| ferramentasfaceis.com.br/postfacil/app.html | Ferramenta completa |
 
 ---
 
-## 📁 ESTRUTURA DO PROJETO
+## 🔐 SISTEMA DE ACESSO
+
+### Fluxo do Cliente:
+1. Compra no Hotmart (R$ 67)
+2. Recebe email com senha: `postfacilsucesso`
+3. Acessa: `/login.html`
+4. Digita senha → Usa ferramenta completa
+
+### Arquivos:
+- `index.html` → Demo (P&B, marca d'água)
+- `login.html` → Página de login
+- `app.html` → Versão completa (precisa login)
+
+---
+
+## � ESTRUTURA DO PROJETO
 
 ```
 postfacil/
-├── index.html              ← Ferramenta principal
+├── index.html              ← Demo (P&B + marca d'água)
+├── login.html              ← Login com senha fixa
+├── app.html                ← Versão completa (paga)
+├── index_backup.html       ← Backup sem restrições
 ├── contexto-completo.md    ← Este arquivo
+├── assets/
+│   ├── logo.png
+│   ├── whatsapp-icon.png
+│   └── produto_beleza_mock.png
 ├── entrega/
-│   ├── MANUAL_POSTFACIL.pdf     ← Upload na Hotmart
+│   ├── postfacil-completo.zip  ← ZIP para Hotmart
+│   ├── MANUAL_POSTFACIL.pdf
 │   └── ACESSO_POSTFACIL.html
-├── materiais-afiliados/
-│   ├── EMAILS_PRONTOS.txt
-│   ├── COPIES_REDES_SOCIAIS.txt
-│   └── DADOS_PRODUTO.txt
-└── marketing/
-    ├── KIT_MARKETING_COMPLETO_POSTFACIL.md
-    └── PITCH_AFILIADOS_POSTFACIL.md
+├── marketing/
+│   ├── DESCRICAO_HOTMART_POSTFACIL.md  ← NOVA
+│   ├── KIT_MARKETING_COMPLETO_POSTFACIL.md
+│   └── PITCH_AFILIADOS_POSTFACIL.md
+└── materiais-afiliados/
+    ├── EMAILS_PRONTOS.txt
+    ├── COPIES_REDES_SOCIAIS.txt
+    └── DADOS_PRODUTO.txt
 ```
 
 ---
 
-## 🔥 PostFácil - Modelo Final
+## 🛠️ PRÓXIMOS PASSOS
 
-**Distribuição:**
-- Ferramenta web hospedada no Netlify
-- Acesso via Hotmart Club (área de membros)
+### Urgente:
+- [ ] Configurar Cloudflare Pages com domínio ferramentasfaceis.com.br
+- [ ] Testar login e export na nova hospedagem
+- [ ] Atualizar link na Hotmart
 
-**Fluxo do Cliente:**
-1. Compra no Hotmart (R$ 67)
-2. Recebe acesso ao Hotmart Club
-3. Acessa o PostFácil dentro da área de membros
-4. Usa para criar seus posts de promoção
+### Marketing:
+- [ ] Criar primeiro vídeo TikTok/Reels (30s mostrando a ferramenta)
+- [ ] Completar perfil das redes sociais
+- [ ] Criar logo para "Ferramentas Fáceis"
 
-**Proteção:**
-- Hotmart Club controla quem acessa
-- Só compradores veem o link
-
----
-
-## 🧰 LINHA DE PRODUTOS (6 Core)
-
-### 🥇 Prioridade A (Q1 2026)
-
-| Produto | Preço | Status | Complexidade |
-|---------|-------|--------|--------------|
-| **PostFácil** | R$ 67 | � Quase pronto | Finalizando Hotmart |
-| **ValorHora** | R$ 27-37 | ⚪ Backlog | Fácil (2-3h) |
-| **PrecificaFácil** | R$ 67 | ⚪ Backlog | Média (3-4h) |
-
-### 🥈 Prioridade B (Q2 2026)
-
-| Produto | Preço | Status | Complexidade |
-|---------|-------|--------|--------------|
-| **LucroOuPreju** | R$ 37-47 | ⚪ Backlog | Fácil (2-3h) |
-| **OrçaPro** | R$ 67-97 | ⚪ Backlog | Média-Alta |
-| **PropostaExpress** | R$ 37-47 | ⚪ Backlog | Média |
+### Hotmart:
+- [ ] Atualizar descrição com nova URL
+- [ ] Preencher "Sobre o Criador" (tirar Lorem Ipsum)
+- [ ] Atualizar foto do produto
 
 ---
 
-## 💰 PROJEÇÃO DE RECEITA (6 Produtos)
+## 🧰 LINHA DE PRODUTOS (Futuros)
 
-**Cenário Conservador (Ano 1):**
-- 6 produtos × 3 vendas/mês × R$ 50 (média) = R$ 900/mês
-- Ano: R$ 10.800 bruto
-
-**Cenário Otimista (com afiliados):**
-- 6 produtos × 8 vendas/mês × R$ 55 (média) = R$ 2.640/mês
-- Ano: R$ 31.680 bruto
+| Produto | O que faz | Prioridade |
+|---------|-----------|------------|
+| **PostFácil** | Cria posts de promoção | 🟢 PRONTO |
+| **StoriesFácil** | Cria stories animados | 🔵 Próximo |
+| **CardápioFácil** | Cardápio digital | 🔵 Backlog |
+| **CatálogoFácil** | Catálogo PDF | 🔵 Backlog |
+| **EtiquetaFácil** | Etiquetas de preço | 🔵 Backlog |
 
 ---
 
-## 🤝 PADRÃO PARA TODA A LINHA
+## 💰 MODELO FINANCEIRO
 
-- Comissão: 40%
+**PostFácil:**
+- Preço: R$ 67,00 (pagamento único)
+- Comissão afiliados: 40% (R$ 26,80)
 - Cookie: 60 dias
-- Aprovação: Automática
-- Pitch: 1 frase
-- Demo: 30 segundos
-- Entrega: **Link para ferramenta web** (via Hotmart Club)
+- Garantia: 7 dias
 
 ---
 
-**Última atualização:** 2026-01-03 18:42  
-**Link de produção:** https://postfacil.netlify.app  
-**Link Olhão (esposa):** https://postfacil.netlify.app/olhao.html  
-**Link Hotmart:** https://hotmart.com/product/postfacil-criador-de-posts-de-promocao/E103647348G  
-**Hotmart Club:** acessar-postfacil (em configuração)  
-**Próxima ação:** Finalizar Hotmart Club e testar fluxo de compra
+**Última atualização:** 2026-01-04 16:58  
+**Senha de acesso:** postfacilsucesso  
+**Link Hotmart:** https://go.hotmart.com/E103647348G  
+**Próxima ação:** Configurar Cloudflare Pages
