@@ -643,48 +643,6 @@
             </div>
         </div>
 
-        <!-- IMAGEM SECUNDÁRIA -->
-        <div class="section">
-            <div class="section-title" onclick="toggleSection(this)">🖼️ Imagem Secundária (Opcional) <span>▼</span>
-            </div>
-            <div class="section-content">
-                <div class="control-row" style="display:flex; justify-content:space-between; align-items:center;">
-                    <label>Mostrar</label>
-                    <input type="checkbox" id="img2Visible" onchange="updatePreview()">
-                </div>
-                <div class="control-row">
-                    <label>Carregar Imagem</label>
-                    <input type="file" id="imageUpload2" accept="image/*" onchange="loadImage(this, 'productImage2')"
-                        style="font-size:11px;">
-                </div>
-                <div class="control-row">
-                    <label>URL / Base64</label>
-                    <input type="text" id="productImage2" value="assets/produto_beleza_mock.png"
-                        oninput="updatePreview()">
-                </div>
-                <div class="grid-2">
-                    <div class="control-row">
-                        <label>Zoom: <span class="range-value" id="imgZoom2V">100%</span></label>
-                        <input type="range" id="imgZoom2" min="10" max="300" value="100" oninput="updatePreview()">
-                    </div>
-                    <div class="control-row">
-                        <label>Rotação: <span class="range-value" id="imgRot2V">0°</span></label>
-                        <input type="range" id="imgRot2" min="-180" max="180" value="0" oninput="updatePreview()">
-                    </div>
-                </div>
-                <div class="grid-2">
-                    <div class="control-row">
-                        <label>Pos X: <span class="range-value" id="imgX2V">0px</span></label>
-                        <input type="range" id="imgX2" min="-300" max="300" value="0" oninput="updatePreview()">
-                    </div>
-                    <div class="control-row">
-                        <label>Pos Y: <span class="range-value" id="imgY2V">0px</span></label>
-                        <input type="range" id="imgY2" min="-300" max="300" value="0" oninput="updatePreview()">
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- LOGO -->
         <div class="section">
             <div class="section-title" onclick="toggleSection(this)">🧩 Logo <span>▼</span></div>
@@ -703,8 +661,8 @@
                     <input type="text" id="logoSrc" value="assets/logo.png" oninput="updatePreview()">
                 </div>
                 <div class="control-row">
-                    <label>Tamanho: <span class="range-value" id="logoSizeV">100%</span></label>
-                    <input type="range" id="logoSize" min="10" max="300" value="100" oninput="updatePreview()">
+                    <label>Tamanho: <span class="range-value" id="logoSizeV">150%</span></label>
+                    <input type="range" id="logoSize" min="10" max="300" value="150" oninput="updatePreview()">
                 </div>
                 <div class="grid-2">
                     <div class="control-row">

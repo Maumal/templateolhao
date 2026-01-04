@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acesso ao PostFácil</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            max-width: 600px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .emoji {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+
+        .link-box {
+            background: #f8f9fa;
+            border: 2px dashed #667eea;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .link-box p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .link {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 20px;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .tips {
+            background: #e8f5e9;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .tips h3 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .tips ul {
+            color: #555;
+            padding-left: 20px;
+        }
+
+        .tips li {
+            margin-bottom: 8px;
+        }
+
+        .footer {
+            margin-top: 30px;
+            color: #999;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <div class="emoji">🎉</div>
+        <h1>Parabéns pela sua compra!</h1>
+        <p class="subtitle">Seu PostFácil está pronto para usar</p>
+
+        <div class="link-box">
+            <p>👇 Clique no botão para acessar:</p>
+            <a href="https://postfacil.netlify.app" target="_blank" class="link">
+                🚀 Acessar PostFácil
+            </a>
+        </div>
+
+        <div class="tips">
+            <h3>💡 Dicas importantes:</h3>
+            <ul>
+                <li><strong>Use no computador</strong> para a melhor experiência</li>
+                <li><strong>Salve nos favoritos</strong> para acessar rápido</li>
+                <li>A ferramenta funciona direto no navegador</li>
+                <li>Não precisa instalar nada!</li>
+            </ul>
+        </div>
+
+        <p class="footer">
+            Dúvidas? Entre em contato pelo suporte da Hotmart.
+        </p>
+    </div>
+</body>
+
+</html>

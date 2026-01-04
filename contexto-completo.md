@@ -1,5 +1,10 @@
 # 📋 CONTEXTO COMPLETO DO PROJETO
 
+> **📌 USO:** Cole este arquivo no início de novos chats para continuar de onde parou.
+> **Última atualização:** 2026-01-04 12:25
+
+---
+
 ## 🎯 VISÃO GERAL
 
 **Nome do Projeto:** Linha de Produtos Afiliáveis Hotmart  
@@ -9,90 +14,96 @@
 
 ---
 
-## 📊 STATUS ATUAL (2026-01-03 - 16h00)
+## 📊 STATUS ATUAL (2026-01-04 - 12h24)
 
-### ✅ CONCLUÍDO HOJE
+### ✅ CONCLUÍDO
 
-**PostFácil:**
-- ✅ Adicionado ícone WhatsApp clicável no footer
-- ✅ Campo editável para número WhatsApp
-- ✅ CTA alterado para @ handle (@sua_loja)
-- ✅ Seção "Loja" renomeada para "WhatsApp"
-- ✅ Upload de logo personalizado implementado
-- ✅ Repositório separado criado: `~/Documentos/git/postfacil/`
+**PostFácil - Ferramenta:**
+- ✅ Interface web desktop funcionando
+- ✅ WhatsApp clicável no footer
+- ✅ CTA com @ handle
+- ✅ Upload de logo personalizado
+- ✅ Deploy Netlify: https://postfacil.netlify.app
 
-**Decisões Importantes:**
-- ✅ **PWA Mobile** - 70% dos usuários não têm PC
-- ✅ **Hotmart Club** - Proteção de acesso (só quem comprou vê o link)
-- ✅ **Vercel/Netlify** - Hospedagem grátis (100k visitas/mês)
-- ✅ **Repositório separado** - Cada produto = 1 repo = 1 deploy
+**PostFácil - Hotmart:**
+- ✅ Produto criado na Hotmart
+- ✅ Descrição e vantagens preenchidas
+- ✅ Marketplace configurado (tags, perfil comprador)
+- ✅ Afiliados configurados (40%, 60 dias, automático)
+- ✅ Manual PDF criado (`entrega/MANUAL_POSTFACIL.pdf`)
+- ✅ Materiais para afiliados criados (`materiais-afiliados/`)
+
+---
+
+## 🆕 NOVA ESTRATÉGIA DE DISTRIBUIÇÃO (2026-01-04)
+
+### Modelo: Demo Grátis + ZIP Pago
+
+**Problema anterior:**
+- Hotmart Club para proteger acesso
+- Complexidade desnecessária
+- Quem quer copiar código, copia de qualquer jeito
+
+**Nova abordagem (mais simples e eficaz):**
+
+| Versão | Onde | O que tem | Preço |
+|--------|------|-----------|-------|
+| **Demo** | Netlify (público) | Funciona 100%, mas só 3 logos genéricos | Grátis |
+| **Completa** | ZIP (após compra) | Upload de logo próprio liberado | R$ 67 |
+
+### Demo (Netlify)
+- ✅ Todas as funcionalidades ativas
+- ✅ Todos os templates
+- ✅ Download de imagem funciona
+- ⚠️ Só 3 logos pré-definidos ("Sua Loja", "Minha Marca", "Promo Shop")
+- ❌ Upload de logo próprio desabilitado
+
+### Versão Completa (ZIP)
+- ✅ Tudo liberado
+- ✅ Upload de logo próprio
+- ✅ Arquivo local, funciona offline
+
+### Por que funciona:
+1. **Prova de valor** - Pessoa testa antes de pagar
+2. **Marketing grátis** - Demo pode viralizar
+3. **Limitação inteligente** - Quem quer usar profissionalmente PRECISA de logo próprio
+4. **Pragmático** - Quem quer piratear vai piratear, melhor converter quem quer pagar
+
+### Referências de mercado:
+- Canva (marca d'água no free)
+- Remove.bg (baixa resolução no free)
+- Figma (limite de projetos no free)
 
 ---
 
 ## 🛠️ PRÓXIMOS PASSOS (PostFácil)
 
-### 1. Criar repo no GitHub
-```bash
-# No terminal, pasta ~/Documentos/git/postfacil/
-git remote add origin git@github.com:Maumal/postfacil.git
-git branch -M main
-git push -u origin main
-```
-
-### 2. Transformar em PWA responsivo
-- [x] Criar `manifest.json`
-- [x] Criar `service-worker.js`
-- [x] Ícones PWA (192px e 512px)
-- [x] Meta tags Apple e Open Graph
-- [x] Menu hambúrguer mobile-first
-- [ ] Testar em celular (após deploy)
-
-### 3. Deploy no Netlify ✅
-- [x] Conectar repo ao Netlify
-- [x] Link: **https://postfacil.netlify.app**
-- [x] Versão estável desktop-only
-
-### 4. Configurar Hotmart (PRÓXIMO PASSO)
-
-**Passo a passo:**
-
-1. **Criar produto** em hotmart.com → Produtos → Novo Produto
-   - Tipo: Produto Digital
-   - Nome: PostFácil - Criador de Posts de Promoção
-   - Preço: R$ 67
-   - Categoria: Ferramentas / Produtividade
-
-2. **Ativar Hotmart Club** (área de membros)
-   - Configurações do Produto → Área de Membros → Ativar
-
-3. **Criar módulo na área de membros**
-   - Título: "🚀 Acessar PostFácil"
-   - Conteúdo: 
-     ```
-     Clique no link abaixo para abrir o PostFácil:
-     
-     👉 https://postfacil.netlify.app
-     
-     Dica: Adicione à tela inicial do seu celular para acesso rápido!
-     ```
-
-4. **Configurar afiliados**
-   - Afiliação → Permitir afiliados
-   - Comissão: 40%
-   - Cookie: 60 dias
-   - Aprovação: Automática
+### Pendente:
+- [ ] Criar versão demo (desabilitar upload logo, adicionar 3 logos genéricos)
+- [ ] Criar assets: 3 logos genéricos em PNG
+- [ ] Adicionar botão "Comprar versão completa" na demo
+- [ ] Atualizar entrega na Hotmart (ZIP em vez de Hotmart Club)
+- [ ] Testar fluxo completo
+- [ ] Primeira venda!
 
 ---
 
-## 📁 ESTRUTURA NOVA
+## 📁 ESTRUTURA DO PROJETO
 
 ```
-GitHub (Maumal):
-├── produtos-afiliaveis-hotmart/   ← Documentação geral
-├── postfacil/                     ← ✅ Repo separado (deploy Vercel)
-├── valorhora/                     ← Futuro
-├── precificafacil/                ← Futuro
-└── ...
+postfacil/
+├── index.html              ← Ferramenta principal
+├── contexto-completo.md    ← Este arquivo
+├── entrega/
+│   ├── MANUAL_POSTFACIL.pdf     ← Upload na Hotmart
+│   └── ACESSO_POSTFACIL.html
+├── materiais-afiliados/
+│   ├── EMAILS_PRONTOS.txt
+│   ├── COPIES_REDES_SOCIAIS.txt
+│   └── DADOS_PRODUTO.txt
+└── marketing/
+    ├── KIT_MARKETING_COMPLETO_POSTFACIL.md
+    └── PITCH_AFILIADOS_POSTFACIL.md
 ```
 
 ---
@@ -100,21 +111,18 @@ GitHub (Maumal):
 ## 🔥 PostFácil - Modelo Final
 
 **Distribuição:**
-- NÃO é mais arquivo HTML para baixar
-- É link de app web (PWA) hospedado
+- Ferramenta web hospedada no Netlify
+- Acesso via Hotmart Club (área de membros)
 
 **Fluxo do Cliente:**
 1. Compra no Hotmart (R$ 67)
-2. Recebe acesso à área de membros
-3. Clica no link do PostFácil
-4. Abre no celular/PC
-5. Adiciona à tela inicial (opcional)
-6. Usa offline após primeira carga
+2. Recebe acesso ao Hotmart Club
+3. Acessa o PostFácil dentro da área de membros
+4. Usa para criar seus posts de promoção
 
 **Proteção:**
 - Hotmart Club controla quem acessa
-- Link não é óbvio (postfacil-x7k.vercel.app)
-- Repositório privado no GitHub
+- Só compradores veem o link
 
 ---
 
@@ -124,7 +132,7 @@ GitHub (Maumal):
 
 | Produto | Preço | Status | Complexidade |
 |---------|-------|--------|--------------|
-| **PostFácil** | R$ 67 | 🔵 PWA em progresso | Concluindo |
+| **PostFácil** | R$ 67 | � Quase pronto | Finalizando Hotmart |
 | **ValorHora** | R$ 27-37 | ⚪ Backlog | Fácil (2-3h) |
 | **PrecificaFácil** | R$ 67 | ⚪ Backlog | Média (3-4h) |
 
@@ -157,11 +165,13 @@ GitHub (Maumal):
 - Aprovação: Automática
 - Pitch: 1 frase
 - Demo: 30 segundos
-- Entrega: **Link para PWA** (via Hotmart Club)
+- Entrega: **Link para ferramenta web** (via Hotmart Club)
 
 ---
 
-**Última atualização:** 2026-01-03 17:09  
+**Última atualização:** 2026-01-03 18:42  
 **Link de produção:** https://postfacil.netlify.app  
 **Link Olhão (esposa):** https://postfacil.netlify.app/olhao.html  
-**Próxima ação:** Configurar produto no Hotmart
+**Link Hotmart:** https://hotmart.com/product/postfacil-criador-de-posts-de-promocao/E103647348G  
+**Hotmart Club:** acessar-postfacil (em configuração)  
+**Próxima ação:** Finalizar Hotmart Club e testar fluxo de compra
