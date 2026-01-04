@@ -1431,61 +1431,6 @@
             if (elements.ctaColorHex && document.activeElement !== elements.ctaColorHex) elements.ctaColorHex.value = elements.ctaColor.value;
         }
 
-        // ==========================================
-        // DEMO MODE - Preto e Branco + Marca d'água
-        // ==========================================
-        const IS_DEMO = true; // FALSE = versão paga (cores normais)
-
-        function applyDemoRestrictions(canvas) {
-            const ctx = canvas.getContext('2d');
-            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-            const data = imageData.data;
-
-            // Preto e branco
-            for (let i = 0; i < data.length; i += 4) {
-                const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
-                data[i] = avg;
-                data[i + 1] = avg;
-                data[i + 2] = avg;
-            }
-            ctx.putImageData(imageData, 0, 0);
-
-            // Marca d'água - CENTRALIZADA
-            const fontSize = Math.floor(canvas.width * 0.1);
-            ctx.font = `bold ${fontSize}px Arial, sans-serif`;
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-            ctx.strokeStyle = 'rgba(0, 0, 0, 0.5)';
-            ctx.lineWidth = 3;
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-
-            const text = 'DEMO - PostFácil';
-            const w = canvas.width;
-            const h = canvas.height;
-
-            // 3 marcas d'água em diagonal
-            ctx.save();
-            ctx.translate(w / 2, h / 3);
-            ctx.rotate(-20 * Math.PI / 180);
-            ctx.strokeText(text, 0, 0);
-            ctx.fillText(text, 0, 0);
-            ctx.restore();
-
-            ctx.save();
-            ctx.translate(w / 2, h / 2);
-            ctx.rotate(-20 * Math.PI / 180);
-            ctx.strokeText(text, 0, 0);
-            ctx.fillText(text, 0, 0);
-            ctx.restore();
-
-            ctx.save();
-            ctx.translate(w / 2, h * 2 / 3);
-            ctx.rotate(-20 * Math.PI / 180);
-            ctx.strokeText(text, 0, 0);
-            ctx.fillText(text, 0, 0);
-            ctx.restore();
-        }
-
         function downloadImage() {
             const format = document.getElementById('exportFormat')?.value || 'png';
 
@@ -1502,18 +1447,11 @@
                 useCORS: true,
                 allowTaint: true
             }).then(canvas => {
-                if (IS_DEMO) applyDemoRestrictions(canvas);
-
                 const link = document.createElement('a');
                 link.download = `promo-post.${config.ext}`;
                 link.href = canvas.toDataURL(config.mime, config.quality);
                 link.click();
-
-                if (IS_DEMO) {
-                    showToast(`📥 DEMO: P&B + Marca d'água. Compre a versão completa!`, 'info');
-                } else {
-                    showToast(`📥 Imagem salva como ${config.ext.toUpperCase()}!`, 'success');
-                }
+                showToast(`📥 Imagem salva como ${config.ext.toUpperCase()}!`, 'success');
             });
         }
 
@@ -1534,19 +1472,14 @@
                     allowTaint: true
                 });
 
-                if (IS_DEMO) applyDemoRestrictions(canvas);
-
                 canvas.toBlob(async (blob) => {
                     try {
                         await navigator.clipboard.write([
                             new ClipboardItem({ 'image/png': blob })
                         ]);
-                        if (IS_DEMO) {
-                            showToast('📋 DEMO copiado! Compre para cores.', 'info');
-                        } else {
-                            showToast('✅ Imagem copiada para a área de transferência!', 'success');
-                        }
+                        showToast('✅ Imagem copiada para a área de transferência!', 'success');
                     } catch (err) {
+                        // Fallback: tentar abrir em nova aba
                         const url = URL.createObjectURL(blob);
                         window.open(url, '_blank');
                         showToast('⚠️ Não foi possível copiar. Imagem aberta em nova aba.', 'info');
