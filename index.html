@@ -651,15 +651,7 @@
                     <label>Ativar Logo</label>
                     <input type="checkbox" id="logoVisible" checked onchange="updatePreview()">
                 </div>
-                <div class="control-row">
-                    <label>Carregar Logo</label>
-                    <input type="file" id="logoUpload" accept="image/*" onchange="loadImage(this, 'logoSrc')"
-                        style="font-size:11px;">
-                </div>
-                <div class="control-row">
-                    <label>URL / Base64</label>
-                    <input type="text" id="logoSrc" value="assets/logo.png" oninput="updatePreview()">
-                </div>
+
                 <div class="control-row">
                     <label>Tamanho: <span class="range-value" id="logoSizeV">150%</span></label>
                     <input type="range" id="logoSize" min="10" max="300" value="150" oninput="updatePreview()">
