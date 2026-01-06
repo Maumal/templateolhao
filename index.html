@@ -6,13 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎨 Olhão na Promo</title>
     <script>
-        // Redireciona para a página de login
-        window.location.href = 'login.html';
+        // Se já está logado, vai direto para o app
+        if (localStorage.getItem('olhaonapromo_logado') === 'true') {
+            window.location.replace('app.html');
+        } else {
+            window.location.replace('login.html');
+        }
     </script>
 </head>
 
 <body>
-    <p>Redirecionando para login...</p>
+    <p>Redirecionando...</p>
 </body>
 
 </html>
