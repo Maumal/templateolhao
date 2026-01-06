@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>🎨 PostFácil - Crie Posts de Promoção em 2 Cliques</title>
+    <title>🎨 Olhão na Promo - Gerador de Posts</title>
 
     <!-- PWA Meta Tags -->
     <meta name="description"
@@ -457,7 +457,7 @@
     <div class="sidebar">
         <div class="sidebar-header">
             <div style="display:flex; justify-content:space-between; align-items:center;">
-                <h1>📱 PostFácil</h1>
+                <h1>🎨 Olhão na Promo</h1>
             </div>
             <div class="collapse-controls">
                 <button class="btn btn-secondary" id="expandAll" type="button">Abrir tudo</button>
@@ -490,6 +490,8 @@
             <div class="section-title" onclick="toggleSection(this)">🎨 Templates Rápidos <span>▼</span></div>
             <div class="section-content">
                 <div class="grid-2">
+                    <button class="btn btn-secondary" onclick="applyTemplate('olhao')" type="button">⭐ Olhão na
+                        Promo</button>
                     <button class="btn btn-secondary" onclick="applyTemplate('moderno1')" type="button">Estilo
                         Promo</button>
                     <button class="btn btn-secondary" onclick="applyTemplate('oferta')" type="button">Promoção
@@ -1601,6 +1603,30 @@
         // TEMPLATES PRÉ-DEFINIDOS
         // ==========================================
         const TEMPLATES = {
+            olhao: {
+                name: 'Olhão na Promo',
+                bgProduct: '#ffffff',
+                bgInfo: '#1E3A8A',
+                barColor: '#60A5FA',
+                barThick: 4,
+                nameColor: '#ffffff',
+                nameFont: 'Poppins',
+                nameSize: 24,
+                origColor: '#94a3b8',
+                origFont: 'Inter',
+                origSize: 14,
+                promoColor: '#D4AF37',
+                promoFont: 'Poppins',
+                promoSize: 48,
+                badgeBg: '#D4AF37',
+                badgeColor: '#1E3A8A',
+                badgeSize: 14,
+                floatBg: '#60A5FA',
+                floatColor: '#ffffff',
+                storeColor: '#94a3b8',
+                ctaColor: '#60A5FA',
+                ctaText: '👆 Link na bio'
+            },
             moderno1: {
                 name: 'Estilo Moderno',
                 bgProduct: '#ffffff',
@@ -2249,7 +2275,7 @@
             // Aplicar template padrão na primeira vez
             const hasUsedBefore = localStorage.getItem('promo_has_used');
             if (!hasUsedBefore) {
-                applyTemplate('moderno1');
+                applyTemplate('olhao');
                 localStorage.setItem('promo_has_used', 'true');
             }
 

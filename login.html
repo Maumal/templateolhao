@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔐 PostFácil - Área de Membros</title>
+    <title>🔐 Olhão na Promo - Área de Membros</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -124,8 +124,8 @@
 <body>
     <div class="login-box">
         <div class="logo">🎨</div>
-        <h1>PostFácil</h1>
-        <p class="subtitle">Área exclusiva para clientes</p>
+        <h1>Olhão na Promo</h1>
+        <p class="subtitle">Ferramenta exclusiva</p>
 
         <div class="error" id="error">
             ❌ Senha incorreta. Verifique seus dados de acesso.
@@ -137,7 +137,7 @@
                 <input type="password" id="senha" placeholder="Digite a senha enviada por email" required>
             </div>
 
-            <button type="submit">🚀 Acessar PostFácil</button>
+            <button type="submit">🚀 Acessar Ferramenta</button>
         </form>
 
         <div class="footer">
@@ -147,7 +147,7 @@
 
     <script>
         // SENHA DE ACESSO - Altere aqui quando quiser
-        const SENHA_CORRETA = 'postfacilsucesso';
+        const SENHA_CORRETA = 'olhaonapromo';
 
         function verificarLogin() {
             const senha = document.getElementById('senha').value;
@@ -155,7 +155,7 @@
 
             if (senha === SENHA_CORRETA) {
                 // Salva que está logado
-                localStorage.setItem('postfacil_logado', 'true');
+                localStorage.setItem('olhaonapromo_logado', 'true');
                 // Redireciona para a ferramenta
                 window.location.href = 'app.html';
             } else {
@@ -167,7 +167,7 @@
         }
 
         // Se já está logado, redireciona direto
-        if (localStorage.getItem('postfacil_logado') === 'true') {
+        if (localStorage.getItem('olhaonapromo_logado') === 'true') {
             window.location.href = 'app.html';
         }
     </script>

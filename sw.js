@@ -2,6 +2,8 @@ const CACHE_NAME = 'postfacil-v1';
 const ASSETS_TO_CACHE = [
     '/',
     '/index.html',
+    '/login.html',
+    '/app.html',
     '/manifest.json',
     '/assets/logo.png',
     '/assets/icon-192.png',
