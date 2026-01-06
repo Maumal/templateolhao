@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>🎨 Olhão na Promo - Gerador de Posts</title>
+    <title>🎨 PostFácil - Crie Posts de Promoção em 2 Cliques</title>
 
     <!-- PWA Meta Tags -->
     <meta name="description"
@@ -21,10 +21,9 @@
     <meta property="og:description" content="Crie posts profissionais em 2 cliques. Sem mensalidade!">
     <meta property="og:image" content="assets/icon-512.png">
     <meta property="og:type" content="website">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;600;700;800&family=Montserrat:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&family=Rubik:wght@400;500;600;700;800;900&family=Nunito:wght@400;600;700;800;900&family=Work+Sans:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=Bebas+Neue&family=Oswald:wght@400;500;600;700&family=Raleway:wght@400;500;600;700;800&family=Quicksand:wght@400;500;600;700&family=Lato:wght@400;700;900&family=Open+Sans:wght@400;600;700;800&family=Playfair+Display:wght@400;600;700;800&display=swap"
-        rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- Fontes locais para uso offline -->
+    <link rel="stylesheet" href="assets/fonts.css">
+    <script src="assets/html2canvas.min.js"></script>
     <style>
         :root {
             --bg-primary: #0f172a;
@@ -54,8 +53,9 @@
             font-family: 'Inter', sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
+            overflow: hidden;
         }
 
         .sidebar {
@@ -301,11 +301,13 @@
         .preview-area {
             flex: 1;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
             padding: 20px;
             background: var(--bg-primary);
             overflow: auto;
+            height: 100vh;
+            max-height: 100vh;
         }
 
         #instagram-post {
@@ -457,7 +459,7 @@
     <div class="sidebar">
         <div class="sidebar-header">
             <div style="display:flex; justify-content:space-between; align-items:center;">
-                <h1>🎨 Olhão na Promo</h1>
+                <h1>📱 PostFácil</h1>
             </div>
             <div class="collapse-controls">
                 <button class="btn btn-secondary" id="expandAll" type="button">Abrir tudo</button>
@@ -490,8 +492,6 @@
             <div class="section-title" onclick="toggleSection(this)">🎨 Templates Rápidos <span>▼</span></div>
             <div class="section-content">
                 <div class="grid-2">
-                    <button class="btn btn-secondary" onclick="applyTemplate('olhao')" type="button">⭐ Olhão na
-                        Promo</button>
                     <button class="btn btn-secondary" onclick="applyTemplate('moderno1')" type="button">Estilo
                         Promo</button>
                     <button class="btn btn-secondary" onclick="applyTemplate('oferta')" type="button">Promoção
@@ -653,15 +653,7 @@
                     <label>Ativar Logo</label>
                     <input type="checkbox" id="logoVisible" checked onchange="updatePreview()">
                 </div>
-                <div class="control-row">
-                    <label>Carregar Logo</label>
-                    <input type="file" id="logoUpload" accept="image/*" onchange="loadImage(this, 'logoSrc')"
-                        style="font-size:11px;">
-                </div>
-                <div class="control-row">
-                    <label>URL / Base64</label>
-                    <input type="text" id="logoSrc" value="assets/logo.png" oninput="updatePreview()">
-                </div>
+
                 <div class="control-row">
                     <label>Tamanho: <span class="range-value" id="logoSizeV">150%</span></label>
                     <input type="range" id="logoSize" min="10" max="300" value="150" oninput="updatePreview()">
@@ -874,6 +866,33 @@
                     <label>Texto</label>
                     <input type="text" id="badgeText" value="🔥 ECONOMIA DE R$ 30" oninput="updatePreview()">
                 </div>
+                <div class="emoji-picker" style="display:flex; gap:4px; flex-wrap:wrap; margin-bottom:10px;">
+                    <button type="button" onclick="insertEmoji('badgeText', '🔥')"
+                        style="font-size:16px; padding:4px 8px; cursor:pointer; border:1px solid var(--bg-tertiary); border-radius:4px; background:var(--bg-primary);">🔥</button>
+                    <button type="button" onclick="insertEmoji('badgeText', '⚡')"
+                        style="font-size:16px; padding:4px 8px; cursor:pointer; border:1px solid var(--bg-tertiary); border-radius:4px; background:var(--bg-primary);">⚡</button>
+                    <button type="button" onclick="insertEmoji('badgeText', '💰')"
+                        style="font-size:16px; padding:4px 8px; cursor:pointer; border:1px solid var(--bg-tertiary); border-radius:4px; background:var(--bg-primary);">💰</button>
+                    <button type="button" onclick="insertEmoji('badgeText', '🎁')"
+                        style="font-size:16px; padding:4px 8px; cursor:pointer; border:1px solid var(--bg-tertiary); border-radius:4px; background:var(--bg-primary);">🎁</button>
+                    <button type="button" onclick="insertEmoji('badgeText', '✨')"
+                        style="font-size:16px; padding:4px 8px; cursor:pointer; border:1px solid var(--bg-tertiary); border-radius:4px; background:var(--bg-primary);">✨</button>
+                    <button type="button" onclick="insertEmoji('badgeText', '🚀')"
+                        style="font-size:16px; padding:4px 8px; cursor:pointer; border:1px solid var(--bg-tertiary); border-radius:4px; background:var(--bg-primary);">🚀</button>
+                    <button type="button" onclick="insertEmoji('badgeText', '💥')"
+                        style="font-size:16px; padding:4px 8px; cursor:pointer; border:1px solid var(--bg-tertiary); border-radius:4px; background:var(--bg-primary);">💥</button>
+                    <button type="button" onclick="insertEmoji('badgeText', '🏷️')"
+                        style="font-size:16px; padding:4px 8px; cursor:pointer; border:1px solid var(--bg-tertiary); border-radius:4px; background:var(--bg-primary);">🏷️</button>
+                </div>
+                <div class="control-row">
+                    <label>Formato</label>
+                    <select id="badgeFormat" onchange="updatePreview()">
+                        <option value="pill">🏷️ Pílula (arredondado)</option>
+                        <option value="square">⬜ Quadrado</option>
+
+                        <option value="ribbon">📍 Faixa</option>
+                    </select>
+                </div>
                 <div class="grid-2">
                     <div class="control-row">
                         <label>Fundo</label>
@@ -929,6 +948,33 @@
                     <label>Texto</label>
                     <input type="text" id="floatText" value="🔥 33% OFF" oninput="updatePreview()">
                 </div>
+                <div class="emoji-picker" style="display:flex; gap:4px; flex-wrap:wrap; margin-bottom:10px;">
+                    <button type="button" onclick="insertEmoji('floatText', '🔥')"
+                        style="font-size:16px; padding:4px 8px; cursor:pointer; border:1px solid var(--bg-tertiary); border-radius:4px; background:var(--bg-primary);">🔥</button>
+                    <button type="button" onclick="insertEmoji('floatText', '⚡')"
+                        style="font-size:16px; padding:4px 8px; cursor:pointer; border:1px solid var(--bg-tertiary); border-radius:4px; background:var(--bg-primary);">⚡</button>
+                    <button type="button" onclick="insertEmoji('floatText', '💰')"
+                        style="font-size:16px; padding:4px 8px; cursor:pointer; border:1px solid var(--bg-tertiary); border-radius:4px; background:var(--bg-primary);">💰</button>
+                    <button type="button" onclick="insertEmoji('floatText', '🎁')"
+                        style="font-size:16px; padding:4px 8px; cursor:pointer; border:1px solid var(--bg-tertiary); border-radius:4px; background:var(--bg-primary);">🎁</button>
+                    <button type="button" onclick="insertEmoji('floatText', '✨')"
+                        style="font-size:16px; padding:4px 8px; cursor:pointer; border:1px solid var(--bg-tertiary); border-radius:4px; background:var(--bg-primary);">✨</button>
+                    <button type="button" onclick="insertEmoji('floatText', '🚀')"
+                        style="font-size:16px; padding:4px 8px; cursor:pointer; border:1px solid var(--bg-tertiary); border-radius:4px; background:var(--bg-primary);">🚀</button>
+                    <button type="button" onclick="insertEmoji('floatText', '💥')"
+                        style="font-size:16px; padding:4px 8px; cursor:pointer; border:1px solid var(--bg-tertiary); border-radius:4px; background:var(--bg-primary);">💥</button>
+                    <button type="button" onclick="insertEmoji('floatText', '🏷️')"
+                        style="font-size:16px; padding:4px 8px; cursor:pointer; border:1px solid var(--bg-tertiary); border-radius:4px; background:var(--bg-primary);">🏷️</button>
+                </div>
+                <div class="control-row">
+                    <label>Formato</label>
+                    <select id="floatFormat" onchange="updatePreview()">
+                        <option value="pill">🏷️ Pílula (arredondado)</option>
+                        <option value="square">⬜ Quadrado</option>
+
+                        <option value="ribbon">📍 Faixa</option>
+                    </select>
+                </div>
                 <div class="grid-2">
                     <div class="control-row">
                         <label>Fundo</label>
@@ -962,6 +1008,204 @@
                 <div class="control-row">
                     <label>Tamanho: <span class="range-value" id="floatSizeV">14px</span></label>
                     <input type="range" id="floatSize" min="10" max="60" value="14" oninput="updatePreview()">
+                </div>
+            </div>
+        </div>
+
+        <!-- BADGES AUXILIARES -->
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">🏷️ Badges Extras <span>▶</span></div>
+            <div class="section-content collapsed">
+                <p style="font-size:10px; color:var(--text-secondary); margin-bottom:10px;">Badges livres para qualquer
+                    lugar do post.</p>
+
+                <!-- Badge Aux 1 -->
+                <div style="border:1px dashed var(--bg-tertiary); padding:10px; border-radius:6px; margin-bottom:10px;">
+                    <div class="control-row" style="display:flex; justify-content:space-between; align-items:center;">
+                        <label style="font-weight:700;">Badge Extra 1</label>
+                        <input type="checkbox" id="aux1Visible" onchange="updatePreview()">
+                    </div>
+                    <div class="control-row">
+                        <input type="text" id="aux1Text" value="🚚 FRETE GRÁTIS" oninput="updatePreview()">
+                    </div>
+                    <div class="emoji-picker" style="display:flex; gap:4px; flex-wrap:wrap; margin-bottom:8px;">
+                        <button type="button" onclick="insertEmoji('aux1Text', '🔥')"
+                            style="font-size:14px; padding:2px 6px; cursor:pointer; border:1px solid var(--bg-tertiary); border-radius:4px; background:var(--bg-primary);">🔥</button>
+                        <button type="button" onclick="insertEmoji('aux1Text', '⚡')"
+                            style="font-size:14px; padding:2px 6px; cursor:pointer; border:1px solid var(--bg-tertiary); border-radius:4px; background:var(--bg-primary);">⚡</button>
+                        <button type="button" onclick="insertEmoji('aux1Text', '🚚')"
+                            style="font-size:14px; padding:2px 6px; cursor:pointer; border:1px solid var(--bg-tertiary); border-radius:4px; background:var(--bg-primary);">🚚</button>
+                        <button type="button" onclick="insertEmoji('aux1Text', '💳')"
+                            style="font-size:14px; padding:2px 6px; cursor:pointer; border:1px solid var(--bg-tertiary); border-radius:4px; background:var(--bg-primary);">💳</button>
+                        <button type="button" onclick="insertEmoji('aux1Text', '🎁')"
+                            style="font-size:14px; padding:2px 6px; cursor:pointer; border:1px solid var(--bg-tertiary); border-radius:4px; background:var(--bg-primary);">🎁</button>
+                        <button type="button" onclick="insertEmoji('aux1Text', '✨')"
+                            style="font-size:14px; padding:2px 6px; cursor:pointer; border:1px solid var(--bg-tertiary); border-radius:4px; background:var(--bg-primary);">✨</button>
+                    </div>
+                    <div class="control-row">
+                        <label>Formato</label>
+                        <select id="aux1Format" onchange="updatePreview()">
+                            <option value="pill">🏷️ Pílula</option>
+                            <option value="square">⬜ Quadrado</option>
+                            <option value="ribbon">📍 Faixa</option>
+                        </select>
+                    </div>
+                    <div class="grid-2">
+                        <div class="control-row">
+                            <label>Fundo</label>
+                            <input type="color" id="aux1Bg" value="#10b981" oninput="updatePreview()">
+                        </div>
+                        <div class="control-row">
+                            <label>Texto</label>
+                            <input type="color" id="aux1Color" value="#ffffff" oninput="updatePreview()">
+                        </div>
+                    </div>
+                    <div class="grid-2">
+                        <div class="control-row">
+                            <label>Tamanho</label>
+                            <input type="range" id="aux1Size" min="10" max="30" value="12" oninput="updatePreview()">
+                        </div>
+                        <div class="control-row">
+                            <label>Rotação</label>
+                            <input type="range" id="aux1Rot" min="-45" max="45" value="0" oninput="updatePreview()">
+                        </div>
+                    </div>
+                    <div class="grid-2">
+                        <div class="control-row">
+                            <label>X (%)</label>
+                            <input type="range" id="aux1X" min="0" max="100" value="10" oninput="updatePreview()">
+                        </div>
+                        <div class="control-row">
+                            <label>Y (%)</label>
+                            <input type="range" id="aux1Y" min="0" max="100" value="50" oninput="updatePreview()">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Badge Aux 2 -->
+                <div style="border:1px dashed var(--bg-tertiary); padding:10px; border-radius:6px; margin-bottom:10px;">
+                    <div class="control-row" style="display:flex; justify-content:space-between; align-items:center;">
+                        <label style="font-weight:700;">Badge Extra 2</label>
+                        <input type="checkbox" id="aux2Visible" onchange="updatePreview()">
+                    </div>
+                    <div class="control-row">
+                        <input type="text" id="aux2Text" value="⚡ ÚLTIMAS UNIDADES" oninput="updatePreview()">
+                    </div>
+                    <div class="emoji-picker" style="display:flex; gap:4px; flex-wrap:wrap; margin-bottom:8px;">
+                        <button type="button" onclick="insertEmoji('aux2Text', '🔥')"
+                            style="font-size:14px; padding:2px 6px; cursor:pointer; border:1px solid var(--bg-tertiary); border-radius:4px; background:var(--bg-primary);">🔥</button>
+                        <button type="button" onclick="insertEmoji('aux2Text', '⚡')"
+                            style="font-size:14px; padding:2px 6px; cursor:pointer; border:1px solid var(--bg-tertiary); border-radius:4px; background:var(--bg-primary);">⚡</button>
+                        <button type="button" onclick="insertEmoji('aux2Text', '🚚')"
+                            style="font-size:14px; padding:2px 6px; cursor:pointer; border:1px solid var(--bg-tertiary); border-radius:4px; background:var(--bg-primary);">🚚</button>
+                        <button type="button" onclick="insertEmoji('aux2Text', '💳')"
+                            style="font-size:14px; padding:2px 6px; cursor:pointer; border:1px solid var(--bg-tertiary); border-radius:4px; background:var(--bg-primary);">💳</button>
+                        <button type="button" onclick="insertEmoji('aux2Text', '🎁')"
+                            style="font-size:14px; padding:2px 6px; cursor:pointer; border:1px solid var(--bg-tertiary); border-radius:4px; background:var(--bg-primary);">🎁</button>
+                        <button type="button" onclick="insertEmoji('aux2Text', '✨')"
+                            style="font-size:14px; padding:2px 6px; cursor:pointer; border:1px solid var(--bg-tertiary); border-radius:4px; background:var(--bg-primary);">✨</button>
+                    </div>
+                    <div class="control-row">
+                        <label>Formato</label>
+                        <select id="aux2Format" onchange="updatePreview()">
+                            <option value="pill">🏷️ Pílula</option>
+                            <option value="square">⬜ Quadrado</option>
+                            <option value="ribbon">📍 Faixa</option>
+                        </select>
+                    </div>
+                    <div class="grid-2">
+                        <div class="control-row">
+                            <label>Fundo</label>
+                            <input type="color" id="aux2Bg" value="#8b5cf6" oninput="updatePreview()">
+                        </div>
+                        <div class="control-row">
+                            <label>Texto</label>
+                            <input type="color" id="aux2Color" value="#ffffff" oninput="updatePreview()">
+                        </div>
+                    </div>
+                    <div class="grid-2">
+                        <div class="control-row">
+                            <label>Tamanho</label>
+                            <input type="range" id="aux2Size" min="10" max="30" value="12" oninput="updatePreview()">
+                        </div>
+                        <div class="control-row">
+                            <label>Rotação</label>
+                            <input type="range" id="aux2Rot" min="-45" max="45" value="0" oninput="updatePreview()">
+                        </div>
+                    </div>
+                    <div class="grid-2">
+                        <div class="control-row">
+                            <label>X (%)</label>
+                            <input type="range" id="aux2X" min="0" max="100" value="70" oninput="updatePreview()">
+                        </div>
+                        <div class="control-row">
+                            <label>Y (%)</label>
+                            <input type="range" id="aux2Y" min="0" max="100" value="50" oninput="updatePreview()">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Badge Aux 3 -->
+                <div style="border:1px dashed var(--bg-tertiary); padding:10px; border-radius:6px;">
+                    <div class="control-row" style="display:flex; justify-content:space-between; align-items:center;">
+                        <label style="font-weight:700;">Badge Extra 3</label>
+                        <input type="checkbox" id="aux3Visible" onchange="updatePreview()">
+                    </div>
+                    <div class="control-row">
+                        <input type="text" id="aux3Text" value="💳 PARCELAMOS" oninput="updatePreview()">
+                    </div>
+                    <div class="emoji-picker" style="display:flex; gap:4px; flex-wrap:wrap; margin-bottom:8px;">
+                        <button type="button" onclick="insertEmoji('aux3Text', '🔥')"
+                            style="font-size:14px; padding:2px 6px; cursor:pointer; border:1px solid var(--bg-tertiary); border-radius:4px; background:var(--bg-primary);">🔥</button>
+                        <button type="button" onclick="insertEmoji('aux3Text', '⚡')"
+                            style="font-size:14px; padding:2px 6px; cursor:pointer; border:1px solid var(--bg-tertiary); border-radius:4px; background:var(--bg-primary);">⚡</button>
+                        <button type="button" onclick="insertEmoji('aux3Text', '🚚')"
+                            style="font-size:14px; padding:2px 6px; cursor:pointer; border:1px solid var(--bg-tertiary); border-radius:4px; background:var(--bg-primary);">🚚</button>
+                        <button type="button" onclick="insertEmoji('aux3Text', '💳')"
+                            style="font-size:14px; padding:2px 6px; cursor:pointer; border:1px solid var(--bg-tertiary); border-radius:4px; background:var(--bg-primary);">💳</button>
+                        <button type="button" onclick="insertEmoji('aux3Text', '🎁')"
+                            style="font-size:14px; padding:2px 6px; cursor:pointer; border:1px solid var(--bg-tertiary); border-radius:4px; background:var(--bg-primary);">🎁</button>
+                        <button type="button" onclick="insertEmoji('aux3Text', '✨')"
+                            style="font-size:14px; padding:2px 6px; cursor:pointer; border:1px solid var(--bg-tertiary); border-radius:4px; background:var(--bg-primary);">✨</button>
+                    </div>
+                    <div class="control-row">
+                        <label>Formato</label>
+                        <select id="aux3Format" onchange="updatePreview()">
+                            <option value="pill">🏷️ Pílula</option>
+                            <option value="square">⬜ Quadrado</option>
+                            <option value="ribbon">📍 Faixa</option>
+                        </select>
+                    </div>
+                    <div class="grid-2">
+                        <div class="control-row">
+                            <label>Fundo</label>
+                            <input type="color" id="aux3Bg" value="#3b82f6" oninput="updatePreview()">
+                        </div>
+                        <div class="control-row">
+                            <label>Texto</label>
+                            <input type="color" id="aux3Color" value="#ffffff" oninput="updatePreview()">
+                        </div>
+                    </div>
+                    <div class="grid-2">
+                        <div class="control-row">
+                            <label>Tamanho</label>
+                            <input type="range" id="aux3Size" min="10" max="30" value="12" oninput="updatePreview()">
+                        </div>
+                        <div class="control-row">
+                            <label>Rotação</label>
+                            <input type="range" id="aux3Rot" min="-45" max="45" value="0" oninput="updatePreview()">
+                        </div>
+                    </div>
+                    <div class="grid-2">
+                        <div class="control-row">
+                            <label>X (%)</label>
+                            <input type="range" id="aux3X" min="0" max="100" value="50" oninput="updatePreview()">
+                        </div>
+                        <div class="control-row">
+                            <label>Y (%)</label>
+                            <input type="range" id="aux3Y" min="0" max="100" value="95" oninput="updatePreview()">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1083,20 +1327,15 @@
         </div>
 
         <div class="actions">
-            <button class="btn btn-primary" id="downloadBtn" onclick="downloadImage()">📥 Baixar (<span
+            <button class="btn btn-primary" id="downloadBtn" onclick="downloadImage()">📥 Baixar Imagem (<span
                     id="downloadSize">1080x1080</span>)</button>
             <div style="display:flex; gap:8px; margin-top:8px;">
-                <select id="exportFormat" style="flex:1; padding:8px; font-size:12px;">
-                    <option value="png">PNG (melhor qualidade)</option>
-                    <option value="jpeg">JPG (menor tamanho)</option>
-                    <option value="webp">WebP (equilíbrio)</option>
-                </select>
-                <button class="btn btn-secondary" onclick="copyToClipboard()" style="flex:1;"
-                    title="Copiar imagem para área de transferência">📋 Copiar</button>
+                <button class="btn btn-secondary" onclick="saveProject()" style="flex:1;">💾 Guardar Rascunho</button>
+                <button class="btn btn-secondary" onclick="document.getElementById('loadProjectInput').click()"
+                    style="flex:1;">📂 Continuar Rascunho</button>
             </div>
-            <button class="btn btn-secondary" onclick="optimizeAll()" style="background:#10b981;">⚡ Otimizar
-                Tudo</button>
-            <button class="btn btn-secondary" onclick="resetAll()">🗑️ Resetar</button>
+            <input type="file" id="loadProjectInput" accept=".json" onchange="loadProject(this)" style="display:none;">
+            <button class="btn btn-secondary" onclick="resetAll()" style="margin-top:8px;">🔄 Começar do Zero</button>
         </div>
     </div>
 
@@ -1127,11 +1366,20 @@
                     <span id="ctaDisplay" style="font-weight:700;">@sua_loja</span>
                 </div>
             </div>
+            <!-- Badges Auxiliares (posição livre) -->
+            <div id="aux1Badge"
+                style="display:none; position:absolute; padding:6px 12px; border-radius:20px; font-size:12px; font-weight:700; z-index:100;">
+                FRETE GRÁTIS</div>
+            <div id="aux2Badge"
+                style="display:none; position:absolute; padding:6px 12px; border-radius:20px; font-size:12px; font-weight:700; z-index:100;">
+                ÚLTIMAS UNIDADES</div>
+            <div id="aux3Badge"
+                style="display:none; position:absolute; padding:6px 12px; border-radius:20px; font-size:12px; font-weight:700; z-index:100;">
+                PARCELAMOS</div>
         </div>
     </div>
 
     <script>
-
         const sizePresets = {
             instagram_square: { label: 'Instagram 1:1', width: 1080, height: 1080 },
             instagram_portrait: { label: 'Instagram 4:5', width: 1080, height: 1350 },
@@ -1237,6 +1485,62 @@
             if (/^#[0-9A-Fa-f]{6}$/.test(hex)) {
                 if (elements[id]) elements[id].value = hex;
                 updatePreview();
+            }
+        }
+
+        // Inserir emoji no campo de texto
+        function insertEmoji(inputId, emoji) {
+            const input = document.getElementById(inputId);
+            if (input) {
+                const start = input.selectionStart;
+                const end = input.selectionEnd;
+                const text = input.value;
+                input.value = text.substring(0, start) + emoji + text.substring(end);
+                input.focus();
+                input.setSelectionRange(start + emoji.length, start + emoji.length);
+                updatePreview();
+            }
+        }
+
+        // Aplicar formato visual ao badge
+        function applyBadgeFormat(el, format, padding = 10) {
+            // Reset estilos
+            el.style.borderRadius = '';
+            el.style.clipPath = '';
+            el.style.width = '';
+            el.style.height = '';
+            el.style.aspectRatio = '';
+            el.style.textAlign = 'center';
+            el.style.display = 'inline-block';
+            el.style.alignItems = '';
+            el.style.justifyContent = '';
+            el.style.minWidth = '';
+            el.style.minHeight = '';
+
+            switch (format) {
+                case 'pill':
+                    el.style.borderRadius = '40px';
+                    break;
+                case 'square':
+                    el.style.borderRadius = '4px';
+                    break;
+                case 'circle':
+                    el.style.borderRadius = '50%';
+                    el.style.display = 'inline-flex';
+                    el.style.alignItems = 'center';
+                    el.style.justifyContent = 'center';
+                    el.style.width = 'auto';
+                    el.style.height = 'auto';
+                    el.style.aspectRatio = '1 / 1';
+                    el.style.padding = `${padding}px`;
+                    el.style.boxSizing = 'content-box';
+                    break;
+                case 'ribbon':
+                    el.style.borderRadius = '0';
+                    el.style.clipPath = 'polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%)';
+                    el.style.paddingLeft = `${padding * 2}px`;
+                    el.style.paddingRight = `${padding * 2}px`;
+                    break;
             }
         }
 
@@ -1373,6 +1677,11 @@
                 badgeEl.style.fontSize = elements.badgeSize.value + 'px';
                 if (elements.badgeSizeV) elements.badgeSizeV.innerText = elements.badgeSize.value + 'px';
                 badgeEl.style.padding = `${elements.badgePadding.value}px ${elements.badgePadding.value * 2}px`;
+
+                // Aplicar formato
+                const badgeFormat = document.getElementById('badgeFormat')?.value || 'pill';
+                applyBadgeFormat(badgeEl, badgeFormat, elements.badgePadding.value);
+
                 setTransform(badgeEl, elements.badgeX.value, elements.badgeY.value, elements.badgeRot.value);
             }
             if (elements.badgeBgHex && document.activeElement !== elements.badgeBgHex) elements.badgeBgHex.value = elements.badgeBg.value;
@@ -1386,12 +1695,51 @@
                 floatEl.style.color = elements.floatColor.value;
                 floatEl.style.fontSize = elements.floatSize.value + 'px';
                 if (elements.floatSizeV) elements.floatSizeV.innerText = elements.floatSize.value + 'px';
+
+                // Aplicar formato
+                const floatFormat = document.getElementById('floatFormat')?.value || 'pill';
+                applyBadgeFormat(floatEl, floatFormat, 8);
+
                 // Uses % positioning
                 floatEl.style.right = (100 - elements.floatX.value) + '%';
                 floatEl.style.top = elements.floatY.value + '%';
                 floatEl.style.transform = `rotate(${elements.floatRot.value}deg)`;
             }
             if (elements.floatBgHex && document.activeElement !== elements.floatBgHex) elements.floatBgHex.value = elements.floatBg.value;
+
+            // Badges Auxiliares
+            for (let i = 1; i <= 3; i++) {
+                const badge = document.getElementById(`aux${i}Badge`);
+                const visible = document.getElementById(`aux${i}Visible`);
+                const text = document.getElementById(`aux${i}Text`);
+                const bg = document.getElementById(`aux${i}Bg`);
+                const color = document.getElementById(`aux${i}Color`);
+                const x = document.getElementById(`aux${i}X`);
+                const y = document.getElementById(`aux${i}Y`);
+                const size = document.getElementById(`aux${i}Size`);
+                const rot = document.getElementById(`aux${i}Rot`);
+                const format = document.getElementById(`aux${i}Format`);
+
+                if (badge && visible) {
+                    if (text) badge.innerText = text.value;
+                    if (bg) badge.style.background = bg.value;
+                    if (color) badge.style.color = color.value;
+                    if (size) badge.style.fontSize = size.value + 'px';
+                    if (x) badge.style.left = x.value + '%';
+                    if (y) badge.style.top = y.value + '%';
+
+                    // Aplicar formato ANTES do display
+                    if (format) applyBadgeFormat(badge, format.value, 6);
+
+                    // Transform com rotação
+                    const rotValue = rot ? rot.value : 0;
+                    badge.style.transform = `translate(-50%, -50%) rotate(${rotValue}deg)`;
+
+                    // Display por ÚLTIMO para sobrescrever o formato
+                    badge.style.display = visible.checked ? 'block' : 'none';
+                }
+            }
+
 
             // Loja
             if (elements.storeDisplay) {
@@ -1434,6 +1782,61 @@
             if (elements.ctaColorHex && document.activeElement !== elements.ctaColorHex) elements.ctaColorHex.value = elements.ctaColor.value;
         }
 
+        // ==========================================
+        // DEMO MODE - Preto e Branco + Marca d'água
+        // ==========================================
+        const IS_DEMO = true; // FALSE = versão paga (cores normais)
+
+        function applyDemoRestrictions(canvas) {
+            const ctx = canvas.getContext('2d');
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const data = imageData.data;
+
+            // Preto e branco
+            for (let i = 0; i < data.length; i += 4) {
+                const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+                data[i] = avg;
+                data[i + 1] = avg;
+                data[i + 2] = avg;
+            }
+            ctx.putImageData(imageData, 0, 0);
+
+            // Marca d'água - CENTRALIZADA
+            const fontSize = Math.floor(canvas.width * 0.1);
+            ctx.font = `bold ${fontSize}px Arial, sans-serif`;
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+            ctx.strokeStyle = 'rgba(0, 0, 0, 0.5)';
+            ctx.lineWidth = 3;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+
+            const text = 'DEMO - PostFácil';
+            const w = canvas.width;
+            const h = canvas.height;
+
+            // 3 marcas d'água em diagonal
+            ctx.save();
+            ctx.translate(w / 2, h / 3);
+            ctx.rotate(-20 * Math.PI / 180);
+            ctx.strokeText(text, 0, 0);
+            ctx.fillText(text, 0, 0);
+            ctx.restore();
+
+            ctx.save();
+            ctx.translate(w / 2, h / 2);
+            ctx.rotate(-20 * Math.PI / 180);
+            ctx.strokeText(text, 0, 0);
+            ctx.fillText(text, 0, 0);
+            ctx.restore();
+
+            ctx.save();
+            ctx.translate(w / 2, h * 2 / 3);
+            ctx.rotate(-20 * Math.PI / 180);
+            ctx.strokeText(text, 0, 0);
+            ctx.fillText(text, 0, 0);
+            ctx.restore();
+        }
+
         function downloadImage() {
             const format = document.getElementById('exportFormat')?.value || 'png';
 
@@ -1450,16 +1853,151 @@
                 useCORS: true,
                 allowTaint: true
             }).then(canvas => {
+                if (IS_DEMO) applyDemoRestrictions(canvas);
+
                 const link = document.createElement('a');
                 link.download = `promo-post.${config.ext}`;
                 link.href = canvas.toDataURL(config.mime, config.quality);
                 link.click();
-                showToast(`📥 Imagem salva como ${config.ext.toUpperCase()}!`, 'success');
+
+                if (IS_DEMO) {
+                    showToast(`📥 DEMO: P&B + Marca d'água. Compre a versão completa!`, 'info');
+                } else {
+                    showToast(`📥 Imagem salva como ${config.ext.toUpperCase()}!`, 'success');
+                }
             });
         }
 
         function resetAll() {
             location.reload();
+        }
+
+        // ==========================================
+        // SALVAR E ABRIR PROJETO
+        // ==========================================
+        async function saveProject() {
+            const projectData = {};
+
+            // Lista de todos os inputs que queremos salvar
+            const inputIds = [
+                // Tamanho
+                'customWidth', 'customHeight',
+                // Geral e Cores
+                'bgProduct', 'bgInfo', 'barColor', 'barThick', 'infoHeight',
+                'borderColor', 'borderThick', 'gradientEnabled', 'bgInfoGradient', 'gradientDirection',
+                // Imagem
+                'productImage', 'imgZoom', 'imgRot', 'imgX', 'imgY', 'imgShadow',
+                // Logo
+                'logoVisible', 'logoSrc', 'logoSize', 'logoX', 'logoY', 'logoRot', 'logoShadow',
+                // Nome
+                'nameVisible', 'productName', 'nameFont', 'nameColor', 'nameSize', 'nameX', 'nameY', 'nameRot',
+                // Preço Original
+                'origVisible', 'priceOriginal', 'origFont', 'origColor', 'origSize', 'origX', 'origY', 'origRot',
+                // Preço Promo
+                'promoVisible', 'pricePromo', 'promoFont', 'promoColor', 'promoSize', 'promoX', 'promoY', 'promoRot',
+                // Badge Inferior
+                'badgeVisible', 'badgeText', 'badgeBg', 'badgeColor', 'badgeSize', 'badgePadding', 'badgeX', 'badgeY', 'badgeRot',
+                // Badge Flutuante
+                'floatVisible', 'floatText', 'floatBg', 'floatColor', 'floatSize', 'floatX', 'floatY', 'floatRot',
+                // Loja
+                'storeVisible', 'storeName', 'storeColor', 'storeSize', 'storeX', 'storeY', 'storeRot',
+                'storeLogoVisible', 'storeLogoSrc', 'storeLogoSize', 'storeLogoX', 'storeLogoY', 'storeLogoRot',
+                // CTA
+                'ctaVisible', 'ctaText', 'ctaColor', 'ctaSize', 'ctaX', 'ctaY', 'ctaRot'
+            ];
+
+            inputIds.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    if (el.type === 'checkbox') {
+                        projectData[id] = el.checked;
+                    } else {
+                        projectData[id] = el.value;
+                    }
+                }
+            });
+
+            // Salvar tamanho atual do post
+            const currentSize = elements.downloadSize?.textContent || '1080x1080';
+            projectData._postSize = currentSize;
+
+            const dataStr = JSON.stringify(projectData, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+
+            // Tentar usar File System Access API (Chrome/Edge)
+            if ('showSaveFilePicker' in window) {
+                try {
+                    const handle = await window.showSaveFilePicker({
+                        suggestedName: 'meu-post.json',
+                        types: [{
+                            description: 'Projeto PostFácil',
+                            accept: { 'application/json': ['.json'] }
+                        }]
+                    });
+                    const writable = await handle.createWritable();
+                    await writable.write(blob);
+                    await writable.close();
+                    showToast('💾 Rascunho guardado!', 'success');
+                    return;
+                } catch (err) {
+                    // Usuário cancelou ou erro - tentar fallback
+                    if (err.name === 'AbortError') return;
+                }
+            }
+
+            // Fallback: download direto
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.download = 'meu-post.json';
+            link.href = url;
+            link.click();
+            URL.revokeObjectURL(url);
+            showToast('💾 Rascunho guardado na pasta Downloads!', 'success');
+        }
+
+        function loadProject(input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                try {
+                    const projectData = JSON.parse(e.target.result);
+
+                    // Aplicar valores
+                    Object.keys(projectData).forEach(id => {
+                        if (id.startsWith('_')) return; // Skip metadata
+
+                        const el = document.getElementById(id);
+                        if (el) {
+                            if (el.type === 'checkbox') {
+                                el.checked = projectData[id];
+                            } else {
+                                el.value = projectData[id];
+                            }
+                        }
+                    });
+
+                    // Aplicar tamanho do post
+                    if (projectData._postSize) {
+                        const [w, h] = projectData._postSize.split('x').map(Number);
+                        if (w && h) {
+                            elements.customWidth.value = w;
+                            elements.customHeight.value = h;
+                            applySize(w, h, null);
+                        }
+                    }
+
+                    updatePreview();
+                    showToast('📂 Rascunho carregado! Continue de onde parou.', 'success');
+                } catch (err) {
+                    showToast('❌ Erro ao carregar arquivo', 'error');
+                }
+            };
+            reader.readAsText(file);
+
+            // Limpar input para permitir carregar mesmo arquivo novamente
+            input.value = '';
         }
 
         // ==========================================
@@ -1475,14 +2013,19 @@
                     allowTaint: true
                 });
 
+                if (IS_DEMO) applyDemoRestrictions(canvas);
+
                 canvas.toBlob(async (blob) => {
                     try {
                         await navigator.clipboard.write([
                             new ClipboardItem({ 'image/png': blob })
                         ]);
-                        showToast('✅ Imagem copiada para a área de transferência!', 'success');
+                        if (IS_DEMO) {
+                            showToast('📋 DEMO copiado! Compre para cores.', 'info');
+                        } else {
+                            showToast('✅ Imagem copiada para a área de transferência!', 'success');
+                        }
                     } catch (err) {
-                        // Fallback: tentar abrir em nova aba
                         const url = URL.createObjectURL(blob);
                         window.open(url, '_blank');
                         showToast('⚠️ Não foi possível copiar. Imagem aberta em nova aba.', 'info');
@@ -1599,30 +2142,6 @@
         // TEMPLATES PRÉ-DEFINIDOS
         // ==========================================
         const TEMPLATES = {
-            olhao: {
-                name: 'Olhão na Promo',
-                bgProduct: '#ffffff',
-                bgInfo: '#1E3A8A',
-                barColor: '#60A5FA',
-                barThick: 4,
-                nameColor: '#ffffff',
-                nameFont: 'Poppins',
-                nameSize: 24,
-                origColor: '#94a3b8',
-                origFont: 'Inter',
-                origSize: 14,
-                promoColor: '#D4AF37',
-                promoFont: 'Poppins',
-                promoSize: 48,
-                badgeBg: '#D4AF37',
-                badgeColor: '#1E3A8A',
-                badgeSize: 14,
-                floatBg: '#60A5FA',
-                floatColor: '#ffffff',
-                storeColor: '#94a3b8',
-                ctaColor: '#60A5FA',
-                ctaText: '👆 Link na bio'
-            },
             moderno1: {
                 name: 'Estilo Moderno',
                 bgProduct: '#ffffff',
@@ -2271,7 +2790,7 @@
             // Aplicar template padrão na primeira vez
             const hasUsedBefore = localStorage.getItem('promo_has_used');
             if (!hasUsedBefore) {
-                applyTemplate('olhao');
+                applyTemplate('moderno1');
                 localStorage.setItem('promo_has_used', 'true');
             }
 
